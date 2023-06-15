@@ -23,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',HomeComponent::class);
 
-Route::get('/shop',ShopComponent::class); 
+Route::get('/shop',ShopComponent::class)->name('shop'); 
 
-Route::get('/cart',CartComponent::class); 
+Route::get('/cart',CartComponent::class)->name('cart'); 
 
-Route::get('/checkout',CheckoutComponent::class); 
+Route::get('/checkout',CheckoutComponent::class)->name('checkout'); 
