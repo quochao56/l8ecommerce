@@ -71,7 +71,7 @@
                                     <fieldset class="wrap-input">
                                         <label for="frm-login-uname">Email Address:</label>
                                         <input type="email" id="frm-login-uname" name="email"
-                                            placeholder="Type your email address" :value="old('email')"
+                                            placeholder="Type your email address" value="{{ old('email') }}"
                                             autofocus>
                                     </fieldset>
                                     <fieldset class="wrap-input">

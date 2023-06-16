@@ -84,14 +84,14 @@
 									</fieldset>									
 									<fieldset class="wrap-input">
 										<label for="frm-reg-lname">Name*</label>
-										<input type="text" id="frm-reg-lname" name="name" placeholder="Your name*" :value="name" autofocus autocomplete="name">
+										<input type="text" id="frm-reg-lname" name="name" placeholder="Your name*" value="{{ old('name') }}" autofocus autocomplete="name">
                                         @error('name')
                                         <span class='text-red-600'>{{ $message }}</span>
                                         @enderror
 									</fieldset>
 									<fieldset class="wrap-input">
 										<label for="frm-reg-email">Email Address*</label>
-										<input type="email" id="frm-reg-email" name="email" placeholder="Email address" :value="{{ old('email') }}">
+										<input type="email" id="frm-reg-email" name="email" placeholder="Email address" value="{{ old('email') }}">
                                         @error('email')
                                         <span class='text-red-600'>{{ $message }}</span>
                                         @enderror
