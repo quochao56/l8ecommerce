@@ -6,6 +6,7 @@ use Gloudemans\Shoppingcart\Facades\Cart; // Import the Cart facade
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Product;
+use App\Models\Category;
 
 class ShopComponent extends Component
 {
@@ -26,6 +27,7 @@ class ShopComponent extends Component
 
     public function render()
     {
+        // sort
         if($this->sorting=="date"){
             $products = Product::orderBy('created_at','DESC')->paginate($this->pagesize);
         }else if($this->sorting=="price"){
@@ -36,6 +38,8 @@ class ShopComponent extends Component
         }else{
             $products = Product::paginate($this->pagesize);
         }
-        return view('livewire.shop-component', ['products' => $products])->layout("layouts.base");
+
+        $categories = Category::all();
+        return view('livewire.shop-component', compact(['products','categories']))->layout("layouts.base");
     }
 }
