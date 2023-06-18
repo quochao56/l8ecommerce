@@ -87,6 +87,7 @@
                 </div>
 
                 <div class="wrap-pagination-info">
+                {{-- tự động sinh ra font end cho panigate --}}
                     {{ $products->links() }}  
                     {{-- <ul class="page-numbers">
                         <li><span class="page-number-item current" >1</span></li>
