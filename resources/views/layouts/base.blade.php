@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     @livewireStyles
 </head>
 
@@ -593,7 +594,9 @@
         <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
         <script src="{{ asset('assets/js/functions.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @livewireScripts
+        @stack('scripts')
         @livewireStyles
     </body>
 
