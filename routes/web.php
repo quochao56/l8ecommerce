@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
@@ -28,7 +29,7 @@ Route::get('/', HomeComponent::class);
 
 Route::get('/shop', ShopComponent::class)->name('shop');
 
-Route::get('/cart', CartComponent::class)->name('cart');
+Route::get('/cart', CartComponent::class)->name('product.cart');
 
 Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 

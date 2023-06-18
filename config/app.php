@@ -170,6 +170,17 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        /*For future learner Add to cart/ wire:click/ Livewire function not working problem solution: 
+SETP1:  you should publish livewire configurational file with next command:
+         php artisan livewire:publish --config
+SETP2: Then in config folder you would be able to 
+find file htdocs\YourProjectName\config\livewire.php where you would be able to edit the next string:
+         'asset_url'  => null,
+         To
+         'asset_url'  => 'http://localhost/YourProjectName/public',
+*/
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -185,6 +196,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ])->toArray(),
 
 ];

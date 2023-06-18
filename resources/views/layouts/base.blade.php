@@ -194,7 +194,7 @@
                                     <a href="#" class="link-direction">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                         <div class="left-info">
-                                            <span class="index">0 item</span>
+                                            <span class="index">4 items</span>
                                             <span class="title">Wishlist</span>
                                         </div>
                                     </a>
@@ -203,7 +203,9 @@
                                     <a href="#" class="link-direction">
                                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                                         <div class="left-info">
-                                            <span class="index">4 items</span>
+                                            @if(Cart::count() > 0)
+                                            <span class="index">{{ Cart::count() }} items</span>
+                                            @endif
                                             <span class="title">CART</span>
                                         </div>
                                     </a>
@@ -253,7 +255,7 @@
                                         <a href="{{ route('shop') }}" class="link-term mercado-item-title">Shop</a>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="{{ route('cart') }}" class="link-term mercado-item-title">Cart</a>
+                                        <a href="{{ route('product.cart') }}" class="link-term mercado-item-title">Cart</a>
                                     </li>
                                     <li class="menu-item">
                                         <a href="{{ route('checkout') }}"
@@ -591,6 +593,7 @@
         <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
         <script src="{{ asset('assets/js/functions.js') }}"></script>
+        @livewireScripts
         @livewireStyles
     </body>
 
