@@ -6,11 +6,6 @@
     nav .hidden {
         display: block !important;
     }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-    }
 </style>
 <main id="main" class="main-site left-sidebar">
 

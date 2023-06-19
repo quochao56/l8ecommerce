@@ -8185,3 +8185,9 @@ svg {
 .wrap-pagination-info .rounded-r-md {
     margin-left: 5px;
 }
+
+.pagination {
+    margin: 4px 0;
+    display: flex;
+    justify-content: center;
+}
