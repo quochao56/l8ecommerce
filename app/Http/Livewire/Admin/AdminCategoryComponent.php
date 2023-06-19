@@ -12,6 +12,14 @@ class AdminCategoryComponent extends Component
     public function render()
     {
         $categories = Category::paginate(5);
-        return view('livewire.admin.admin-category-component',compact(['categories']))->layout('layouts.base');
+        $totalResults = $categories->total();
+        $startIndex = ($categories->currentPage() - 1) * $categories->perPage() + 1;
+        $endIndex = min($startIndex + $categories->count() - 1, $totalResults);
+    
+        return view('livewire.admin.admin-category-component', compact(['categories',
+                                                                        'startIndex',
+                                                                        'endIndex',
+                                                                        'totalResults']))->layout('layouts.base');
     }
+
 }

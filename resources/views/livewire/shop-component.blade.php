@@ -1,3 +1,17 @@
+<style>
+    nav svg {
+        height: 20px;
+    }
+
+    nav .hidden {
+        display: block !important;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 <main id="main" class="main-site left-sidebar">
 
     <div class="container">
@@ -81,19 +95,12 @@
                         </li>
                         @endforeach
                     </ul>
-
                 </div>
-
-                <div class="wrap-pagination-info">
-                {{-- tự động sinh ra font end cho panigate --}}
-                    {{ $products->links() }}  
-                    {{-- <ul class="page-numbers">
-                        <li><span class="page-number-item current" >1</span></li>
-                        <li><a class="page-number-item" href="#" >2</a></li>
-                        <li><a class="page-number-item" href="#" >3</a></li>
-                        <li><a class="page-number-item next-link" href="#" >Next</a></li>
-                    </ul>
-                    <p class="result-count">Showing 1-8 of 12 result</p> --}}
+                <div class="pagination-summary">
+                    Showing {{ $startIndex }} to {{ $endIndex }} of {{ $totalResults }} results
+                </div>
+                <div class="pagination">
+                    {{ $products->links('\vendor\pagination\bootstrap-4') }}
                 </div>
             </div><!--end main products area-->
 
