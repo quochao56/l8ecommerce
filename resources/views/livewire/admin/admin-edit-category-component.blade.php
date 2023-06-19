@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
-                                    <input type="submit" id="" class="btn btn-primary">
+                                    <button type="submit"  class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </form>

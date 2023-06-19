@@ -6,7 +6,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-6">
-                                Add New Product
+                                Edit Product
                             </div>
                             <div class="col-md-6">
                                 <a href="{{ route('admin.products') }}" class="btn btn-success pull-right">All Products</a>
@@ -17,7 +17,7 @@
                         @if (Session::has('message'))
                             <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                         @endif
-                        <form action="" class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="storeProduct">
+                        <form action="" class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="updateProduct">
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Product Name</label>
                                 <div class="col-md-4">
@@ -87,9 +87,11 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label" >Product Image</label>
                                 <div class="col-md-4">
-                                    <input type="file" class="input-file" wire:model="image">
-                                    @if ($image)
-                                        <img src="{{ $image->temporaryUrl() }}" width="120" alt="">
+                                    <input type="file" class="input-file" wire:model="newImage">
+                                    @if ($newImage)
+                                        <img src="{{ $newImage->temporaryUrl() }}" width="120" alt="">
+                                        @else
+                                        <img src="{{ asset('asset/images/products') }}/{{ $image }}" width="120" alt="">
                                     @endif
                                 </div>
                             </div>
@@ -108,8 +110,7 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
-                                    <button type="submit"  class="btn btn-primary">Submit</button>
-
+                                    <button type="submit"  class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </form>
