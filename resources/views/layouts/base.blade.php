@@ -122,6 +122,10 @@
                                                         <a title="Dashboard"
                                                             href="{{ route('user.dashboard') }}">Dashboard</a>
                                                     </li>
+                                                    <li class="menu-item">
+                                                        <a title="Categories"
+                                                            href="{{ route('admin.categories') }}">Categories</a>
+                                                    </li>
                                                     {{-- Logout --}}
                                                     <li class="menu-item">
                                                         <a href="{{ route('logout') }}"

@@ -15,7 +15,7 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('utype') === 'AMD') {
+        if (session('utype') === 'ADM') {
             return $next($request);
         } else {
             // Trả về trang login với normal user
