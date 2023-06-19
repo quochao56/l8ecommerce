@@ -68,24 +68,27 @@
     </div>
 </div>
 @push('scripts')
-<script>
-    function confirmDelete(categoryId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You are about to delete the category',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Livewire.emit('deleteConfirmed', categoryId);
-            }
-        });
-    }
-</script>
-
-
+    <script>
+        function confirmDelete(categoryId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to delete the category',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('deleteConfirmed', categoryId);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            });
+        }
+    </script>
 @endpush

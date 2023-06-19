@@ -52,6 +52,11 @@
                                             <a
                                                 href="{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}"><i
                                                     class="fa fa-edit fa-2x text-info"></i></a>
+                                            <a href="#" wire:click.prevent="deleteProduct({{ $product->id }})"
+                                                onclick="confirmDelete('{{ $product->id }}');"
+                                                style="margin-left: 10px;">
+                                                <i class="fa fa-times fa-2x text-danger"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -69,3 +74,28 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        function confirmDelete(productId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to delete the category',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('deleteConfirmed', productId);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            });
+        }
+    </script>
+@endpush

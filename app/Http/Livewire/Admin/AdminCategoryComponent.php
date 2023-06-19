@@ -10,10 +10,9 @@ class AdminCategoryComponent extends Component
 {
     use WithPagination;
     protected $listeners = ['deleteConfirmed'];
-    public function mount()
-{
+    public function mount(){
     $this->listeners[] = 'deleteConfirmed';
-}
+    }
     public function deleteCategory($id)
     {
         $categories = Category::find($id);
@@ -25,8 +24,6 @@ class AdminCategoryComponent extends Component
             'categoryId' => $categories->id,
             'categoryName' => $categories->name,
         ]);
-        // $categories->delete();
-        // session()->flash('message', 'Category has been deleted successfully');
     }
     public function deleteConfirmed($id)
     {

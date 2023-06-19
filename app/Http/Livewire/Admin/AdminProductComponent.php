@@ -9,6 +9,31 @@ use Livewire\WithPagination;
 class AdminProductComponent extends Component
 {
     use WithPagination;
+    protected $listeners = ['deleteConfirmed'];
+    public function mount(){
+    $this->listeners[] = 'deleteConfirmed';
+    }
+    public function deleteProduct($id)
+    {
+        $products = Product::find($id);
+        if (!$products) {
+            abort(404);
+        }
+        // Show the SweetAlert confirmation dialog
+        $this->dispatchBrowserEvent('showDeleteConfirmation', [
+            'productId' => $products->id,
+            'productName' => $products->name,
+        ]);
+    }
+    public function deleteConfirmed($id)
+    {
+        $products = Product::find($id);
+        if (!$products) {
+            abort(404);
+        }
+        $products->delete();
+        session()->flash('message', 'Product has been deleted successfully');
+    }
     public function render()
     {
         $products = Product::paginate(10);

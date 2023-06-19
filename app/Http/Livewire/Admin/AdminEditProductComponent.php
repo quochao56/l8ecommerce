@@ -48,7 +48,7 @@ class AdminEditProductComponent extends Component
         $this->slug = Str::slug($this->name,'-');
     }
     public function updateProduct(){
-        $product = new Product();
+        $product = Product::find($this->product_id);
         $product->name = $this->name;
         $product->slug = $this->slug;
         $product->short_description = $this->short_description;
@@ -65,7 +65,7 @@ class AdminEditProductComponent extends Component
             $product->image = $imageName;
         }
         $product->category_id = $this->category_id;
-        $product->save();
+        $product->update();
         session()->flash('message', 'Product has been updated successfully!');
     }
     public function render()
