@@ -6,17 +6,21 @@
 
         nav .hidden {
             display: block !important;
+
         }
     </style>
-    <div class="container" style="padding: 30px 0">
+    <div class="container" style="padding: 30px 0;">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-md-6">All Categories</div>
                             <div class="col-md-6">
-                                <a href="{{ route('admin.addcategory') }}" class="btn btn-success pull-right">Add New</a>
+                                All Slides
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ route('admin.add-homeslider') }}" class="btn btn-success pull-right">Add
+                                    New</a>
                             </div>
                         </div>
                     </div>
@@ -25,23 +29,33 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Category Name</th>
-                                    <th>Slug</th>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Subtitle</th>
+                                    <th>Price</th>
+                                    <th>Link</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($sliders as $slider)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
+                                        <td>{{ $slider->id }}</td>
+                                        <td><img src="{{ asset('assets/images/sliders') }}/{{ $slider->image }}" width="120" alt=""> </td>
+                                        <td>{{ $slider->title }}</td>
+                                        <td>{{ $slider->subtitle }}</td>
+                                        <td>{{ $slider->price }}</td>
+                                        <td>{{ $slider->link }}</td>
+                                        <td>{{ $slider->status == 1 ? 'Active':'Inactive' }}</td>
+                                        <td>{{ $slider->created_at }}</td>
                                         <td>
                                             <a
-                                                href="{{ route('admin.editcategory', ['category_slug' => $category->slug]) }}"><i
-                                                    class="fa fa-edit fa-2x"></i></a>
-                                            <a href="#" wire:click.prevent="deleteCategory({{ $category->id }})"
-                                                onclick="confirmDelete('{{ $category->id }}');"
+                                                href="{{ route('admin.edit-homeslider', ['slider_id' => $slider->id]) }}"><i
+                                                    class="fa fa-edit fa-2x text-info"></i></a>
+                                            <a href="#" wire:click.prevent="deleteProduct({{ $slider->id }})"
+                                                onclick="confirmDelete('{{ $slider->id }}');"
                                                 style="margin-left: 10px;">
                                                 <i class="fa fa-times fa-2x text-danger"></i>
                                             </a>
@@ -50,14 +64,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="pagination-summary">
-                            Showing {{ $startIndex }} to {{ $endIndex }} of {{ $totalResults }} results
-                        </div>
-                        <div class="pagination">
-                            <div>
-                                {{ $categories->links('\vendor\pagination\bootstrap-4') }}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -66,7 +72,7 @@
 </div>
 @push('scripts')
     <script>
-        function confirmDelete(categoryId) {
+        function confirmDelete(sliderId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: 'You are about to delete the category',
@@ -78,7 +84,7 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emit('deleteConfirmed', categoryId);
+                    Livewire.emit('deleteConfirmed', sliderId);
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

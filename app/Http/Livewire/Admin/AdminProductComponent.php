@@ -27,12 +27,11 @@ class AdminProductComponent extends Component
     }
     public function deleteConfirmed($id)
     {
-        $products = Product::find($id);
-        if (!$products) {
+        $product = Product::find($id);
+        if (!$product) {
             abort(404);
         }
-        $products->delete();
-        session()->flash('message', 'Product has been deleted successfully');
+        $product->delete();
     }
     public function render()
     {

@@ -27,13 +27,11 @@ class AdminCategoryComponent extends Component
     }
     public function deleteConfirmed($id)
     {
-        $categories = Category::find($id);
-        if (!$categories) {
+        $category = Category::find($id);
+        if (!$category) {
             abort(404);
         }
-        // dd($categories);
-        $categories->delete();
-        session()->flash('message', 'Category has been deleted successfully');
+        $category->delete();
     }
     public function render()
     {

@@ -96,7 +96,7 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label" >Category</label>
                                 <div class="col-md-4">
-                                    <select class="form-control input-md" wire:model="category_id">
+                                    <select class="form-control" wire:model="category_id">
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
