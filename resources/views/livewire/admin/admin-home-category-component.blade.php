@@ -37,6 +37,8 @@
                     </form>
                 </div>
             </div>
+            {{-- <input type="text" id="datetimepicker"> --}}
+
         </div>
     </div>
 </div>
@@ -45,10 +47,11 @@
         // import 2 link từ select2.org để biến đổi các lựa chọn từ tag select trông đẹp
         $(document).ready(function() {
             $('.sel_categories').select2();
-            $('.sel_categories').on('change', function(e){
+            $('.sel_categories').on('change', function(e) {
                 var data = $('.sel_categories').select2("val");
                 @this.set('selected_categories', data);
             });
+
         });
     </script>
 @endpush

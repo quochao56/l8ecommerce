@@ -21,13 +21,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
+    {{-- sweetalert --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- datetimepicker  --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.7.7/js/tempus-dominus.js" integrity="sha512-FJocLzG4YRG505QsMH2QbLZWmbwvX7WJVn3yB3+WZzRe5+Bi8FObd2R2tSpt7NeHbfeUT3/1BYXb5qx4A1u4Eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @livewireStyles
 </head>
 
 <body class="home-page home-01 ">
-
     <!-- mobile menu -->
     <div class="mercado-clone-wrap">
         <div class="mercado-panels-actions-wrap">
@@ -139,6 +142,10 @@
                                                         <a title="Manage Home Categories"
                                                             href="{{ route('admin.homecategories') }}">Manage Home
                                                             Categories</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a title="Sale Setting" href="{{ route('admin.sale') }}">Sale
+                                                            Setting</a>
                                                     </li>
                                                     {{-- Logout --}}
                                                     <li class="menu-item">
@@ -583,7 +590,11 @@
         <script src="{{ asset('assets/js/functions.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+        {{-- datimepicker --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.7.7/js/tempus-dominus.min.js" integrity="sha512-jBIYFo+QKM9WQBcWjg/NW/GOxnZAJ2vzheAjhmkhX01LSMjVB3rkytETvH/hBnCMtiHBqaxgoSVlomL5isTJsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>        {{-- moment js --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+            integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @livewireScripts
         @stack('scripts')
     </body>

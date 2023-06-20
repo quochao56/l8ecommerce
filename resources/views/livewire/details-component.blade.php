@@ -1,13 +1,13 @@
 <main id="main" class="main-site">
-	<style>
-		.regular-price{
-			font-weight: 300;
-			font-size: 13px !important;
-			color: #aaaaaa !important;
-			text-decoration: line-through;
-			padding-left: 10px;
-		}
-	</style>
+    <style>
+        .regular-price {
+            font-weight: 300;
+            font-size: 13px !important;
+            color: #aaaaaa !important;
+            text-decoration: line-through;
+            padding-left: 10px;
+        }
+    </style>
     <div class="container">
 
         <div class="wrap-breadcrumb">
@@ -47,11 +47,12 @@
                             <a class="link-socail" href="#"><img
                                     src="{{ asset('assets/images/social-list.png') }}" alt=""></a>
                         </div>
-                        @if ($product->sale_price > 0)
+                        @if ($product->sale_price > 0 && $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now())
                             <div class="wrap-price">
-								<span class="product-price">{{ $product->sale_price }}</span>
-								<del><span class="product-price regular-price">{{ $product->regular_price }}</span></del>
-							</div>
+                                <span class="product-price">{{ $product->sale_price }}</span>
+                                <del><span
+                                        class="product-price regular-price">{{ $product->regular_price }}</span></del>
+                            </div>
                         @else
                             <div class="wrap-price"><span class="product-price">{{ $product->regular_price }}</span>
                             </div>
@@ -70,9 +71,15 @@
                             </div>
                         </div>
                         <div class="wrap-butons">
-                            <a href="#" class="btn add-to-cart"
-                                wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add
-                                To Cart</a>
+                            @if ($product->sale_price > 0 && $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now())
+                                <a href="#" class="btn add-to-cart"
+                                    wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->sale_price }})">Add
+                                    To Cart</a>
+                            @else
+                                <a href="#" class="btn add-to-cart"
+                                    wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add
+                                    To Cart</a>
+                            @endif
                             <div class="wrap-btn">
                                 <a href="#" class="btn btn-compare">Add Compare</a>
                                 <a href="#" class="btn btn-wishlist">Add Wishlist</a>
