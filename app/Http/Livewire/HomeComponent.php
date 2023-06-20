@@ -19,11 +19,13 @@ class HomeComponent extends Component
         // tìm trong table Category có id nằm trong $cats
         $categories = Category::whereIn('id',$cats)->get();
         $no_of_products = $category->no_of_products;
+        $sproducts = Product::where('sale_price','>',0)->inRandomOrder()->get()->take(8);
         return view('livewire.home-component',compact([
             'sliders',
             'lproducts',
             'categories',
-            'no_of_products'
+            'no_of_products',
+            'sproducts'
         ]))->layout('layouts.base');
     }
 }
