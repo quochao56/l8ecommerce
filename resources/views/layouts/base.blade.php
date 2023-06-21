@@ -26,7 +26,17 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- datetimepicker  --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.7.7/js/tempus-dominus.js" integrity="sha512-FJocLzG4YRG505QsMH2QbLZWmbwvX7WJVn3yB3+WZzRe5+Bi8FObd2R2tSpt7NeHbfeUT3/1BYXb5qx4A1u4Eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
+        integrity="sha512-WWc9iSr5tHo+AliwUnAQN1RfGK9AnpiOFbmboA0A0VJeooe69YR2rLgHw13KxF1bOSLmke+SNnLWxmZd8RTESQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{-- noUiSlider --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"
+        integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"
+        integrity="sha512-KRrxEp/6rgIme11XXeYvYRYY/x6XPGwk0RsIC6PyMRc072vj2tcjBzFmn939xzjeDhj0aDO7TDMd7Rbz3OEuBQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
     @livewireStyles
 </head>
 
@@ -194,7 +204,7 @@
                                     </a>
                                 </div>
                                 <div class="wrap-icon-section minicart">
-                                    <a href="#" class="link-direction">
+                                    <a href="{{ route('product.cart') }}" class="link-direction">
                                         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                                         <div class="left-info">
                                             @if (Cart::count() > 0)
@@ -591,9 +601,15 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         {{-- datimepicker --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6.7.7/js/tempus-dominus.min.js" integrity="sha512-jBIYFo+QKM9WQBcWjg/NW/GOxnZAJ2vzheAjhmkhX01LSMjVB3rkytETvH/hBnCMtiHBqaxgoSVlomL5isTJsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>        {{-- moment js --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
-            integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA=="
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"
+            integrity="sha512-Y+0b10RbVUTf3Mi0EgJue0FoheNzentTMMIE2OreNbqnUPNbQj8zmjK3fs5D2WhQeGWIem2G2UkKjAL/bJ/UXQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- noUiSlider --}}
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"
+            integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>  --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"
+            integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @livewireScripts
         @stack('scripts')

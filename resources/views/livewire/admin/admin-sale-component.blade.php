@@ -41,7 +41,7 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        $(function() {
             // Initialize datetimepicker
             $('#sale-date').datetimepicker({
                 format: 'Y-MM-DD H:mm:ss', // Specify the desired format
