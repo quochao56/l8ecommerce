@@ -611,6 +611,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"
             integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- tiny  WYSIWYG HTML Editor--}}
+        <script src="https://cdn.tiny.cloud/1/rwbjboc71ukecv9ft5u70l9pqntay1dz889dmqo7peluuyv7/tinymce/6/tinymce.min.js"
+            referrerpolicy="origin"></script>
         @livewireScripts
         @stack('scripts')
     </body>
