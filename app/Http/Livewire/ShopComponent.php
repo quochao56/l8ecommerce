@@ -19,7 +19,7 @@ class ShopComponent extends Component
     public function mount()
     {
         $this->sorting = "default";
-        $this->pagesize = 13;
+        $this->pagesize = 12;
 
         $this->min_price = 1;
         $this->max_price = 1000;
