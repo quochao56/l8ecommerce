@@ -25,14 +25,52 @@ class AdminAddProductComponent extends Component
     public $image;
     public $category_id;
 
-    public function mount(){
+    public function mount()
+    {
         $this->stock_status = 'instock';
         $this->featured = 0;
     }
-    public function generateSlug(){
-        $this->slug = Str::slug($this->name,'-');
+    public function generateSlug()
+    {
+        $this->slug = Str::slug($this->name, '-');
     }
-    public function storeProduct(){
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'name' => ['required'],
+            'slug' => ['required', 'unique:products'],
+            'short_description' => ['required'],
+            'description' => ['required'],
+            'regular_price' => ['required', 'numeric'],
+            'sale_price' => ['numeric'],
+            'SKU' => ['required'],
+            'stock_status' => ['required'],
+            'quantity' => ['required', 'numeric'],
+            'image' => ['required', 'mimes:jpeg,png'],
+            'category_id' => ['required']
+        ],
+    [
+        'SKU' => "The SKU field is required."
+    ]);
+    }
+    public function storeProduct()
+    {
+        $this->validate([
+            'name' => ['required'],
+            'slug' => ['required', 'unique:products'],
+            'short_description' => ['required'],
+            'description' => ['required'],
+            'regular_price' => ['required', 'numeric'],
+            'sale_price' => ['numeric'],
+            'SKU' => ['required'],
+            'stock_status' => ['required'],
+            'quantity' => ['required', 'numeric'],
+            'image' => ['required', 'mimes:jpeg,png'],
+            'category_id' => ['required']
+        ],
+        [
+            'SKU' => "The SKU field is required."
+        ]);
         $product = new Product();
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -44,8 +82,8 @@ class AdminAddProductComponent extends Component
         $product->stock_status = $this->stock_status;
         $product->featured = $this->featured;
         $product->quantity = $this->quantity;
-        $imageName = Carbon::now()->timestamp. '.' . $this->image->extension();
-        $this->image->storeAs('products',$imageName);
+        $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
+        $this->image->storeAs('products', $imageName);
         $product->image = $imageName;
         $product->category_id = $this->category_id;
         $product->save();
@@ -54,8 +92,6 @@ class AdminAddProductComponent extends Component
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.admin.admin-add-product-component',compact([
-            'categories'
-        ]))->layout('layouts.base');
+        return view('livewire.admin.admin-add-product-component', compact(['categories']))->layout('layouts.base');
     }
 }

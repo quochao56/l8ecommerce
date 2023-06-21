@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -47,7 +48,40 @@ class AdminEditProductComponent extends Component
     public function generateSlug(){
         $this->slug = Str::slug($this->name,'-');
     }
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'name' => ['required'],
+            'slug' => ['required',  Rule::unique('products')->ignore($this->product_id)],
+            'short_description' => ['required'],
+            'description' => ['required'],
+            'regular_price' => ['required', 'numeric'],
+            'sale_price' => ['numeric'],
+            'SKU' => ['required'],
+            'stock_status' => ['required'],
+            'quantity' => ['required', 'numeric'],
+            'category_id' => ['required']
+        ],
+    [
+        'SKU' => "The SKU field is required."
+    ]);
+    }
     public function updateProduct(){
+        $this->validate([
+            'name' => ['required'],
+            'slug' => ['required',  Rule::unique('products')->ignore($this->product_id)],
+            'short_description' => ['required'],
+            'description' => ['required'],
+            'regular_price' => ['required', 'numeric'],
+            'sale_price' => ['numeric'],
+            'SKU' => ['required'],
+            'stock_status' => ['required'],
+            'quantity' => ['required', 'numeric'],
+            'category_id' => ['required']
+        ],
+        [
+            'SKU' => "The SKU field is required."
+        ]);
         $product = Product::find($this->product_id);
         $product->name = $this->name;
         $product->slug = $this->slug;
