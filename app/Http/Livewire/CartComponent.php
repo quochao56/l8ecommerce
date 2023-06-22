@@ -14,6 +14,8 @@ class CartComponent extends Component
         $qty = $product->qty + 1;
         // thay đổi quatity của product đc chọn
         Cart::instance('cart')->update($rowId,$qty);
+        $this->emitTo('cart-count-component','refreshComponent');
+
     }
     public function decreaseQuantity($rowId){
         // lấy product có key là $rowid
@@ -26,7 +28,8 @@ class CartComponent extends Component
             }
         
             Cart::instance('cart')->update($rowId, $qty);
-        
+            $this->emitTo('cart-count-component','refreshComponent');
+
         } catch (\Exception $e) {
             DB::rollBack();
             throw new \Exception($e->getMessage());
@@ -35,9 +38,12 @@ class CartComponent extends Component
     }
     public function destroyAll(){
         Cart::instance('cart')->destroy();
+        $this->emitTo('cart-count-component','refreshComponent');
+
     }
     public function destroy($rowId){
         Cart::instance('cart')->remove($rowId);
+        $this->emitTo('cart-count-component','refreshComponent');
         session()->flash('success_message','Item has been removed');
     }
     public function render()
