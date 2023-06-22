@@ -19,11 +19,6 @@ class AdminCategoryComponent extends Component
         if (!$categories) {
             abort(404);
         }
-        // Show the SweetAlert confirmation dialog
-        $this->dispatchBrowserEvent('showDeleteConfirmation', [
-            'categoryId' => $categories->id,
-            'categoryName' => $categories->name,
-        ]);
     }
     public function deleteConfirmed($id)
     {
