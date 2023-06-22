@@ -46,6 +46,7 @@
             $('#sale-date').datetimepicker({
                 format: 'Y-MM-DD H:mm:ss', // Specify the desired format
             })
+            
             .on('dp.change',function(ev){
                 var data = $('#sale-date').val();
                 @this.set('sale-date',data);

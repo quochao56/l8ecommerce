@@ -1,14 +1,13 @@
-<style>
-    nav svg {
-        height: 20px;
-    }
-
-    nav .hidden {
-        display: block !important;
-    }
-</style>
 <main id="main" class="main-site left-sidebar">
+    <style>
+        nav svg {
+            height: 20px;
+        }
 
+        nav .hidden {
+            display: block !important;
+        }
+    </style>
     <div class="container">
 
         <div class="wrap-breadcrumb">
@@ -64,9 +63,42 @@
                 </div>
                 <!--end wrap shop control-->
 
+                <style>
+                    .product-wish {
+                        position: absolute;
+                        top: 10%;
+                        left: 0;
+                        z-index: 99;
+                        right: 30px;
+                        text-align: right;
+                        padding-top: 0;
+                    }
+
+                    .product-wish .fa {
+                        color: #cbcbcb;
+                        font-size: 32px;
+                    }
+
+                    .product-wish .fa:hover {
+                        color: #ff7007;
+                    }
+
+                    .fill-heart {
+                        color: #ff7007 !important;
+                    }
+                </style>
                 <div class="row">
 
                     <ul class="product-list grid-products equal-container">
+                        {{--  Cart::instance('wishlist') method creates an instance of the Cart class and sets it to the wishlist instance.
+                            content() method retrieves all the items in the specified cart instance
+                            pluck('id') method extracts the 'id' column values from the retrieved items and stores them in the $witems variable as an array
+                            $witems will contain an array of all the IDs of the items in the user's wishlist. --}}
+                        @php
+                            $witems = Cart::instance('wishlist')
+                                ->content()
+                                ->pluck('id');
+                        @endphp
                         @foreach ($products as $product)
                             <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                                 <div class="product product-style-3 equal-elem ">
@@ -90,7 +122,16 @@
                                         <a href="#" class="btn add-to-cart"
                                             wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})">Add
                                             To Cart</a>
-
+                                        <div class="product-wish">
+                                            @if ($witems->contains($product->id))
+                                        
+                                                <a href="#"><i class="fa fa-heart fill-heart"></i></a>
+                                            @else
+                                                <a href="#"
+                                                    wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})"><i
+                                                        class="fa fa-heart"></i></a>
+                                            @endif
+                                        </div>
 
                                     </div>
                                 </div>
@@ -136,9 +177,11 @@
                             <li class="list-item"><a class="filter-link " href="#">Printer & Ink</a></li>
                             <li class="list-item"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
                             <li class="list-item"><a class="filter-link " href="#">Sound & Speaker</a></li>
-                            <li class="list-item"><a class="filter-link " href="#">Shop Smartphone & Tablets</a>
+                            <li class="list-item"><a class="filter-link " href="#">Shop Smartphone &
+                                    Tablets</a>
                             </li>
-                            <li class="list-item default-hiden"><a class="filter-link " href="#">Printer & Ink</a>
+                            <li class="list-item default-hiden"><a class="filter-link " href="#">Printer &
+                                    Ink</a>
                             </li>
                             <li class="list-item default-hiden"><a class="filter-link " href="#">CPUs &
                                     Prosecsors</a></li>
@@ -162,7 +205,7 @@
                     <div class="widget-content p-4" style="padding: 10px 5px 40px 5px;">
                         <div id="slider" wire:ignore></div>
                     </div>
-                </div> 
+                </div>
                 {{-- price --}}
 
                 <div class="widget mercado-widget filter-widget">

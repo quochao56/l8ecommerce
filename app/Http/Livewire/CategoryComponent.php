@@ -31,6 +31,10 @@ class CategoryComponent extends Component
         return redirect()->route('product.cart');
     }
 
+    public function test(){
+        dd('xin chaof');
+    }
+
     public function render()
     {
         $category = Category::where('slug',$this->category_slug)->first();

@@ -9,15 +9,15 @@ class CartComponent extends Component
 {
     public function increaseQuantity($rowId){
         // lấy product có key là $rowid
-        $product = Cart::get($rowId);
+        $product = Cart::instance('cart')->get($rowId);
         // tăng quantity
         $qty = $product->qty + 1;
         // thay đổi quatity của product đc chọn
-        Cart::update($rowId,$qty);
+        Cart::instance('cart')->update($rowId,$qty);
     }
     public function decreaseQuantity($rowId){
         // lấy product có key là $rowid
-        $product = Cart::get($rowId);
+        $product = Cart::instance('cart')->get($rowId);
         // giảm quantity
         $qty = $product->qty - 1;
         try {
@@ -25,7 +25,7 @@ class CartComponent extends Component
                 return;
             }
         
-            Cart::update($rowId, $qty);
+            Cart::instance('cart')->update($rowId, $qty);
         
         } catch (\Exception $e) {
             DB::rollBack();
@@ -34,10 +34,10 @@ class CartComponent extends Component
         
     }
     public function destroyAll(){
-        Cart::destroy();
+        Cart::instance('cart')->destroy();
     }
     public function destroy($rowId){
-        Cart::remove($rowId);
+        Cart::instance('cart')->remove($rowId);
         session()->flash('success_message','Item has been removed');
     }
     public function render()
