@@ -7,6 +7,32 @@
         nav .hidden {
             display: block !important;
         }
+
+        .product-wish {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            z-index: 99;
+            right: 30px;
+            text-align: right;
+            padding-top: 0;
+        }
+
+        .product-wish .fa {
+            color: #cbcbcb;
+            font-size: 32px;
+        }
+
+        .product-wish .fa:hover {
+            color: #ff7007;
+        }
+
+        .fill-heart {
+            color: #ff7007 !important;
+        }
+        /* ul product-list{
+            margin-top: 0;
+        } */
     </style>
     <div class="container">
 
@@ -62,43 +88,18 @@
 
                 </div>
                 <!--end wrap shop control-->
-
-                <style>
-                    .product-wish {
-                        position: absolute;
-                        top: 10%;
-                        left: 0;
-                        z-index: 99;
-                        right: 30px;
-                        text-align: right;
-                        padding-top: 0;
-                    }
-
-                    .product-wish .fa {
-                        color: #cbcbcb;
-                        font-size: 32px;
-                    }
-
-                    .product-wish .fa:hover {
-                        color: #ff7007;
-                    }
-
-                    .fill-heart {
-                        color: #ff7007 !important;
-                    }
-                </style>
                 <div class="row">
-
                     <ul class="product-list grid-products equal-container">
                         {{--  Cart::instance('wishlist') method creates an instance of the Cart class and sets it to the wishlist instance.
-                            content() method retrieves all the items in the specified cart instance
-                            pluck('id') method extracts the 'id' column values from the retrieved items and stores them in the $witems variable as an array
-                            $witems will contain an array of all the IDs of the items in the user's wishlist. --}}
+                                content() method retrieves all the items in the specified cart instance
+                                pluck('id') method extracts the 'id' column values from the retrieved items and stores them in the $witems variable as an array
+                                $witems will contain an array of all the IDs of the items in the user's wishlist. --}}
                         @php
                             $witems = Cart::instance('wishlist')
                                 ->content()
                                 ->pluck('id');
                         @endphp
+
                         @foreach ($products as $product)
                             <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
                                 <div class="product product-style-3 equal-elem ">
@@ -124,7 +125,9 @@
                                             To Cart</a>
                                         <div class="product-wish">
                                             @if ($witems->contains($product->id))
-                                                <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})"><i class="fa fa-heart fill-heart"></i></a>
+                                                <a href="#"
+                                                    wire:click.prevent="removeFromWishlist({{ $product->id }})"><i
+                                                        class="fa fa-heart fill-heart"></i></a>
                                             @else
                                                 <a href="#"
                                                     wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})"><i
