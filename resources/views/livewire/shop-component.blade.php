@@ -30,9 +30,6 @@
         .fill-heart {
             color: #ff7007 !important;
         }
-        /* ul product-list{
-            margin-top: 0;
-        } */
     </style>
     <div class="container">
 
@@ -54,11 +51,11 @@
 
                 <div class="wrap-shop-control">
 
-                    <h1 class="shop-title"></h1>
+                    <h1 class="shop-title">Shop</h1>
 
                     <div class="wrap-right">
 
-                        <div class="sort-item orderby ">
+                         <div class="sort-item orderby ">
                             <select name="orderby" class="use-chosen" wire:model="sorting">
                                 <option value="default" selected="selected">Default sorting</option>
                                 <option value="date">Sort by newness</option>
