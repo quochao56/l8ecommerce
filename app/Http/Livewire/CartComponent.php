@@ -125,11 +125,16 @@ class CartComponent extends Component
         }
     }
     public function setAmountForCheckout(){
+        // Bạn chưa có sản phẩm để thanh toan
+        if(!Cart::instance('cart')->count() > 0){
+            session()->forget('checkout');
+            return;
+        }
         if(session()->has('coupon')){
             session()->put('checkout',[
                 'discount' => $this->discount,
                 'subtotal' => $this->subtotalAfterDiscount,
-                'taxAfterDiscount' => $this->taxAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
                 'total' => $this->totalAfterDiscount,
             ]);
         }

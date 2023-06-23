@@ -23,6 +23,7 @@ use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\ShopComponent;
+use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\WishListComponent;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,7 @@ Route::get('/search',SearchComponent::class)->name('product.search');
 
 Route::get('/wishlist',WishListComponent::class)->name('product.wishlist');
 
+Route::get('/thank-you',ThankyouComponent::class)->name('thankyou');
 // Normal user
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {});
 Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
