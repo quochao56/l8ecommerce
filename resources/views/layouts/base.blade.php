@@ -26,11 +26,9 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- datetimepicker  --}}
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"
-        integrity="sha512-WWc9iSr5tHo+AliwUnAQN1RfGK9AnpiOFbmboA0A0VJeooe69YR2rLgHw13KxF1bOSLmke+SNnLWxmZd8RTESQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-        {{-- noUiSlider --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+
+    {{-- noUiSlider --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"
         integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
@@ -158,7 +156,8 @@
                                                             Setting</a>
                                                     </li>
                                                     <li class="menu-item">
-                                                        <a title="All Coupons" href="{{ route('admin.coupons') }}">All Coupons</a>
+                                                        <a title="All Coupons" href="{{ route('admin.coupons') }}">All
+                                                            Coupons</a>
                                                     </li>
                                                     {{-- Logout --}}
                                                     <li class="menu-item">
@@ -195,14 +194,14 @@
                             </div>
 
                             @livewire('header-search-component')
-                            
+
                             <div class="wrap-icon right-section">
-                                
+
                                 @livewire('wishlist-count-component')
-                                
+
                                 @livewire('cart-count-component')
 
-                                
+
                                 <div class="wrap-icon-section show-up-after-1024">
                                     <a href="#" class="mobile-navigation">
                                         <span></span>
@@ -590,10 +589,8 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         {{-- datimepicker --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"
-            integrity="sha512-Y+0b10RbVUTf3Mi0EgJue0FoheNzentTMMIE2OreNbqnUPNbQj8zmjK3fs5D2WhQeGWIem2G2UkKjAL/bJ/UXQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
         {{-- noUiSlider --}}
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"
             integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ=="
@@ -601,7 +598,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"
             integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        {{-- tiny  WYSIWYG HTML Editor--}}
+        {{-- tiny  WYSIWYG HTML Editor --}}
         <script src="https://cdn.tiny.cloud/1/rwbjboc71ukecv9ft5u70l9pqntay1dz889dmqo7peluuyv7/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
         @livewireScripts

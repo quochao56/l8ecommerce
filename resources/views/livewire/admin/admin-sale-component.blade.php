@@ -20,10 +20,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-4 control-label" >Sale Date</label>
+                            <label for="" class="col-md-4 control-label">Sale Date</label>
                             <div class="col-md-4">
-                                <input type="text" id="sale-date" class="form-control input-md" wire:model="sale_date"
-                                    placeholder="YYYY/MM/DD H:M:S">
+                                <input type="text" id="sale_date" class="form-control input-md"
+                                    wire:model="sale_date" placeholder="YYYY/MM/DD H:M:S">
                             </div>
                         </div>
                         <div class="form-group">
@@ -40,16 +40,19 @@
 </div>
 
 @push('scripts')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
     <script>
         $(function() {
             // Initialize datetimepicker
-            $('#sale-date').datetimepicker({
-                format: 'Y-MM-DD H:mm:ss', // Specify the desired format
-            })
-            
-            .on('dp.change',function(ev){
-                var data = $('#sale-date').val();
-                @this.set('sale-date',data);
+            $('#expiry_dsale_dateate').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:ss', // Specify the desired format
+            }).on('dp.change', function(ev) {
+                var data = $('#sale_date').val();
+                @this.set('expiry_date', data);
             });
         });
     </script>
