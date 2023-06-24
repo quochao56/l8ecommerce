@@ -26,7 +26,8 @@
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- datepicker   --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 
     {{-- noUiSlider --}}
     {{-- thanh filter price --}}
@@ -99,7 +100,7 @@
                                 @if (Route::has('login'))
                                     @auth
                                         {{-- User or admin link --}}
-                                        @if (Auth::user()->utype === 'AMD')
+                                        @if (Auth::user()->utype === 'ADM')
                                             {{-- admin --}}
                                             <li class="menu-item menu-item-has-children parent">
                                                 <a title="My Account" href="#">My Account
@@ -109,28 +110,6 @@
                                                     <li class="menu-item">
                                                         <a title="Dashboard"
                                                             href="{{ route('admin.dashboard') }}">Dashboard</a>
-                                                    </li>
-                                                    {{-- Logout --}}
-                                                    <li class="menu-item">
-                                                        <a href="{{ route('logout') }}"
-                                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                                    </li>
-                                                    <form id="logout-form" method="POST"
-                                                        action="{{ route('logout') }}">
-                                                        @csrf
-                                                    </form>
-                                                </ul>
-                                            </li>
-                                        @else
-                                            {{-- normal user --}}
-                                            <li class="menu-item menu-item-has-children parent">
-                                                <a title="My Account" href="#">My Account
-                                                    ({{ Auth::user()->name }})<i class="fa fa-angle-down"
-                                                        aria-hidden="true"></i></a>
-                                                <ul class="submenu curency">
-                                                    <li class="menu-item">
-                                                        <a title="Dashboard"
-                                                            href="{{ route('user.dashboard') }}">Dashboard</a>
                                                     </li>
                                                     <li class="menu-item">
                                                         <a title="Categories"
@@ -156,6 +135,32 @@
                                                     <li class="menu-item">
                                                         <a title="All Coupons" href="{{ route('admin.coupons') }}">All
                                                             Coupons</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a title="All Orders" href="{{ route('admin.orders') }}">All
+                                                            Orders</a>
+                                                    </li>
+                                                    {{-- Logout --}}
+                                                    <li class="menu-item">
+                                                        <a href="{{ route('logout') }}"
+                                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                    </li>
+                                                    <form id="logout-form" method="POST"
+                                                        action="{{ route('logout') }}">
+                                                        @csrf
+                                                    </form>
+                                                </ul>
+                                            </li>
+                                        @else
+                                            {{-- normal user --}}
+                                            <li class="menu-item menu-item-has-children parent">
+                                                <a title="My Account" href="#">My Account
+                                                    ({{ Auth::user()->name }})<i class="fa fa-angle-down"
+                                                        aria-hidden="true"></i></a>
+                                                <ul class="submenu curency">
+                                                    <li class="menu-item">
+                                                        <a title="Dashboard"
+                                                            href="{{ route('user.dashboard') }}">Dashboard</a>
                                                     </li>
                                                     {{-- Logout --}}
                                                     <li class="menu-item">

@@ -3,8 +3,10 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -26,17 +28,21 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ];
         $message = [
-            'require' => 'Please input :attribute',
+            'required' => 'Please input :attribute',
             'email' => 'Please check :attribute again',
             'string' => 'This field :attribute must a string',
             'max' => 'Length of :attribute must less than :max letter',
         ];
 
         $attribute = [
-            'name' => 'your name',
-            'email'=> 'email'
+            'name' => 'Name',
+            'email' => 'Email',
         ];
-        Validator::make($input,$rules, $message, $attribute)->validate();
+        try {
+            Validator::make($input, $rules, $message, $attribute)->validate();
+        } catch (ValidationException $e) {
+            throw $e;
+        }
         
         return User::create([
             'name' => $input['name'],
