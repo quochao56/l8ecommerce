@@ -2,8 +2,8 @@
     <div class="container" style="padding: 30px 0;">
         <div class="row">
             <div class="col-md-12">
-                @if(Session::has('order_message'))
-<div class="alert alert-success" role="alert">{{ Session::get('order_message') }}</div>
+                @if (Session::has('order_message'))
+                    <div class="alert alert-success" role="alert">{{ Session::get('order_message') }}</div>
                 @endif
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -13,8 +13,9 @@
                             </div>
                             <div class="col-md-6">
                                 <a href="{{ route('user.orders') }}" class="btn btn-success pull-right">My Orders</a>
-                                @if($order->status == 'ordered')
-                                <a href="#" wire:click.prevent="cancelOrder" style="margin-right: 20px;" class="btn btn-warning pull-right">Cancel Order</a>
+                                @if ($order->status == 'ordered')
+                                    <a href="#" wire:click.prevent="cancelOrder" style="margin-right: 20px;"
+                                        class="btn btn-warning pull-right">Cancel Order</a>
                                 @endif
                             </div>
                         </div>
@@ -75,7 +76,11 @@
                                         <div class="price-field sub-total">
                                             <p class="price">${{ $item->price * $item->quantity }}</p>
                                         </div>
-
+                                        <div class="price-field sub-total">
+                                            @if ($order->status == 'delivered' && $item->rstatus == false)
+                                                <p class="price"><a href="{{ route('user.review',['order_item_id'=>$item->id]) }}">Write Review</a></p>
+                                            @endif
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>
