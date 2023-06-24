@@ -16,7 +16,7 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('utype') === 'ADM') {
+        if (session('utype') === 'ADM' || Auth::user()->utype ===  'ADM') {
             return $next($request);
         } else {
             // Trả về trang login với normal user

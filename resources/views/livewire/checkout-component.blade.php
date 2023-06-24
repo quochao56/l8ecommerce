@@ -253,7 +253,7 @@
                         @endif
                         <div class="choose-payment-methods">
                             <label class="payment-method">
-                                <input name="payment-method" id="payment-method-bank" value="bank" type="radio"
+                                <input name="payment-method" id="payment-method-cod" value="cod" type="radio"
                                     wire:model="paymentmode">
                                 <span>Cash on Delivery</span>
                                 <span class="payment-desc">Order Now Pay on Delivery</span>

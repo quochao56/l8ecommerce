@@ -1,9 +1,10 @@
 <div>
     <style>
-        nav svg{
+        nav svg {
             height: 20px;
         }
-        nav .hidden{
+
+        nav .hidden {
             display: block !important;
         }
     </style>
@@ -16,7 +17,6 @@
                 <div class="panel-body">
                     <table class="table table-striped">
                         <thead>
-
                             <tr>
                                 <th>OrderId</th>
                                 <th>Subtotal</th>
@@ -30,6 +30,7 @@
                                 <th>Zipcode</th>
                                 <th>Status</th>
                                 <th>Order Date</th>
+                                <td>Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +48,8 @@
                                     <td>{{ $order->zipcode }}</td>
                                     <td>{{ $order->status }}</td>
                                     <td>{{ $order->created_at }}</td>
+                                    <td><a href="{{ route('admin.order-details', ['order_id' => $order->id]) }}"
+                                            class="btn btn-info btn-sm">Details</a>
                                 </tr>
                             @endforeach
                         </tbody>
