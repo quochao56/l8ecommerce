@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,10 @@ class OrderItem extends Model
 
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function review(){
+        return $this->hasOne(Review::class,'order_item_id');
     }
 
 }
