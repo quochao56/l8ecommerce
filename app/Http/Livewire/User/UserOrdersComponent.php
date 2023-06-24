@@ -4,12 +4,14 @@ namespace App\Http\Livewire\User;
 
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserOrdersComponent extends Component
 {
     use WithPagination;
+    
     public function render()
     {
 
