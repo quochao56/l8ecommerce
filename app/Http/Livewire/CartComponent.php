@@ -142,7 +142,7 @@ class CartComponent extends Component
             session()->put('checkout',[
                 'discount' => 0,
                 'subtotal' => Cart::instance('cart')->subtotal(),
-                'taxAfterDiscount' => Cart::instance('cart')->tax(),
+                'tax' => Cart::instance('cart')->tax(),
                 'total' => Cart::instance('cart')->total(), 
             ]);
         }
