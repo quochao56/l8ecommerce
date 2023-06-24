@@ -162,6 +162,10 @@
                                                         <a title="Dashboard"
                                                             href="{{ route('user.dashboard') }}">Dashboard</a>
                                                     </li>
+                                                    <li class="menu-item">
+                                                        <a title="My Orders" href="{{ route('user.orders') }}">My
+                                                            Orders</a>
+                                                    </li>
                                                     {{-- Logout --}}
                                                     <li class="menu-item">
                                                         <a href="{{ route('logout') }}"

@@ -156,7 +156,7 @@
                                         @enderror
                                     </p>
                                     <p class="row-in-form">
-                                        <label for="add">Line1:</label>
+                                        <label for="add">Line1:<span>*</span></label>
                                         <input type="text" name="line" value=""
                                             placeholder="Street at apartment number" wire:model="s_line1">
                                         @error('s_line1')
