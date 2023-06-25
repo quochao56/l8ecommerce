@@ -107,38 +107,40 @@
                         Billing Items
                     </div>
                     <div class="padding-body">
-                        <table class="table">
-                            <tr>
-                                <th>First Name</th>
-                                <td>{{ $order->firstname }}</td>
-                                <th>Last Name</th>
-                                <td>{{ $order->lastname }}</td>
-                            </tr>
-                            <tr>
-                                <th>Phone</th>
-                                <td>{{ $order->mobile }}</td>
-                                <th>Email</th>
-                                <td>{{ $order->email }}</td>
-                            </tr>
-                            <tr>
-                                <th>Line1</th>
-                                <td>{{ $order->line1 }}</td>
-                                <th>Line2</th>
-                                <td>{{ $order->line2 }}</td>
-                            </tr>
-                            <tr>
-                                <th>City</th>
-                                <td>{{ $order->city }}</td>
-                                <th>Province</th>
-                                <td>{{ $order->province }}</td>
-                            </tr>
-                            <tr>
-                                <th>Country</th>
-                                <td>{{ $order->country }}</td>
-                                <th>Zipcode</th>
-                                <td>{{ $order->zipcode }}</td>
-                            </tr>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>First Name</th>
+                                    <td>{{ $order->firstname }}</td>
+                                    <th>Last Name</th>
+                                    <td>{{ $order->lastname }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+                                    <td>{{ $order->mobile }}</td>
+                                    <th>Email</th>
+                                    <td>{{ $order->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Line1</th>
+                                    <td>{{ $order->line1 }}</td>
+                                    <th>Line2</th>
+                                    <td>{{ $order->line2 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>City</th>
+                                    <td>{{ $order->city }}</td>
+                                    <th>Province</th>
+                                    <td>{{ $order->province }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Country</th>
+                                    <td>{{ $order->country }}</td>
+                                    <th>Zipcode</th>
+                                    <td>{{ $order->zipcode }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,38 +153,40 @@
                             Shipping Details
                         </div>
                         <div class="padding-body">
-                            <table class="table">
-                                <tr>
-                                    <th>First Name</th>
-                                    <td>{{ $order->shipping->firstname }}</td>
-                                    <th>Last Name</th>
-                                    <td>{{ $order->shipping->lastname }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Phone</th>
-                                    <td>{{ $order->shipping->mobile }}</td>
-                                    <th>Email</th>
-                                    <td>{{ $order->shipping->email }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Line1</th>
-                                    <td>{{ $order->shipping->line1 }}</td>
-                                    <th>Line2</th>
-                                    <td>{{ $order->shipping->line2 }}</td>
-                                </tr>
-                                <tr>
-                                    <th>City</th>
-                                    <td>{{ $order->shipping->city }}</td>
-                                    <th>Province</th>
-                                    <td>{{ $order->shipping->province }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Country</th>
-                                    <td>{{ $order->shipping->country }}</td>
-                                    <th>Zipcode</th>
-                                    <td>{{ $order->shipping->zipcode }}</td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th>First Name</th>
+                                        <td>{{ $order->shipping->firstname }}</td>
+                                        <th>Last Name</th>
+                                        <td>{{ $order->shipping->lastname }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{{ $order->shipping->mobile }}</td>
+                                        <th>Email</th>
+                                        <td>{{ $order->shipping->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Line1</th>
+                                        <td>{{ $order->shipping->line1 }}</td>
+                                        <th>Line2</th>
+                                        <td>{{ $order->shipping->line2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th>
+                                        <td>{{ $order->shipping->city }}</td>
+                                        <th>Province</th>
+                                        <td>{{ $order->shipping->province }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Country</th>
+                                        <td>{{ $order->shipping->country }}</td>
+                                        <th>Zipcode</th>
+                                        <td>{{ $order->shipping->zipcode }}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,20 +200,22 @@
                         Transaction
                     </div>
                     <div class="padding-body">
-                        <table class="table">
-                            <tr>
-                                <th>Transaction Mode</th>
-                                <td>{{ $order->transaction->mode }}</td>
-                            </tr>
-                            <tr>
-                                <th>Status</th>
-                                <td>{{ $order->transaction->status }}</td>
-                            </tr>
-                            <tr>
-                                <th>Transaction Date</th>
-                                <td>{{ $order->transaction->created_at }}</td>
-                            </tr>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>Transaction Mode</th>
+                                    <td>{{ $order->transaction->mode }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{ $order->transaction->status }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Transaction Date</th>
+                                    <td>{{ $order->transaction->created_at }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -21,6 +21,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                        <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -50,6 +51,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
                         <div class="pagination-summary">
                             Showing {{ $startIndex }} to {{ $endIndex }} of {{ $totalResults }} results
                         </div>

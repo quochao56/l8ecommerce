@@ -14,6 +14,7 @@
                     Contact Messages
                 </div>
                 <div class="panel-body">
+                    <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
@@ -42,6 +43,7 @@
                         </tbody>
 
                     </table>
+                </div>
                     <div class="pagination">
                         <div>
                             {{ $contacts->links('\vendor\pagination\bootstrap-4') }}
