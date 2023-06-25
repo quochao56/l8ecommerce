@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
@@ -11,6 +12,7 @@ use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use TheSeer\Tokenizer\Token;
 
@@ -163,7 +165,7 @@ class CheckoutComponent extends Component
                 $shipping->zipcode = $this->s_zipcode;
                 $shipping->save();
             }
-            
+
             if($this->paymentmode == 'cod') {
                 $this->makeTransaction($order->id, 'pending');
                 $this->resetCart();
@@ -231,6 +233,8 @@ class CheckoutComponent extends Component
             session()->flash('error', $e->getMessage());
             $this->thankyou = 0;
         }
+    $this->sendOrderConfirmationMail($order);
+
     }
     public function resetCart()
     {
@@ -246,6 +250,10 @@ class CheckoutComponent extends Component
         $transaction->mode = $this->paymentmode;
         $transaction->status = $status;
         $transaction->save();
+    }
+    public function sendOrderConfirmationMail($order)
+    {
+        Mail::to($this->email)->send(new OrderMail($order));
     }
     public function verifyForCheckout()
     {
