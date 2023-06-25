@@ -173,10 +173,6 @@
                                                             Orders</a>
                                                     </li>
                                                     <li class="menu-item">
-                                                        <a title="My Orders" href="{{ route('user.orders') }}">My
-                                                            Orders</a>
-                                                    </li>
-                                                    <li class="menu-item">
                                                         <a title="Change Password" href="{{ route('user.change-password') }}">Change Password</a>
                                                     </li>
                                                     {{-- Logout --}}

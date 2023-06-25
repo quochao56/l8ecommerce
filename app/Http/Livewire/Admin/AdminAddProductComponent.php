@@ -96,7 +96,7 @@ class AdminAddProductComponent extends Component
             $imagesname = "";
             foreach($this->images as $key=>$image) {
                 $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
-                $image->storeAs('products',$imgName);
+                $image->storeAs('products', $imgName);
                 $imagesname =  $imagesname . ',' . $imgName;
             }
             $product->images = $imagesname;
