@@ -19,6 +19,7 @@ use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\Admin\AdminSettingComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
@@ -114,6 +115,9 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
 
         // Contact
         Route::get('contact-us', AdminContactComponent::class)->name('admin.contact');
+
+        // Setting
+        Route::get('/settings',AdminSettingComponent::class)->name('admin.settings');
 
     });
 
