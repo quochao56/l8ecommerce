@@ -18,7 +18,8 @@
                                 @if (Session::has('message'))
                                     <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
                                 @endif
-                                <form action="#" method="get" name="frm-contact" wire:submit.prevent="sendMessage">
+                                <form action="#" method="get" name="frm-contact"
+                                    wire:submit.prevent="sendMessage">
 
                                     <label for="name">Name<span>*</span></label>
                                     <input type="text" value="" id="name" name="name"
@@ -51,14 +52,10 @@
                         <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
                             <div class="contact-box contact-info">
                                 <div class="wrap-map">
-                                    <div class="mercado-google-maps" id="az-google-maps57341d9e51968" data-hue=""
-                                        data-lightness="1" data-map-style="2" data-saturation="-100"
-                                        data-modify-coloring="false" data-title_maps="Kute themes"
-                                        data-phone="088-465 9965 02" data-email="kutethemes@gmail.com"
-                                        data-address="Z115 TP. Thai Nguyen" data-longitude="-0.120850"
-                                        data-latitude="51.508742" data-pin-icon="" data-zoom="16"
-                                        data-map-type="ROADMAP" data-map-height="263">
-                                    </div>
+                                    <iframe
+                                        src="{{ $setting->map }}"
+                                        width="650" height="320" style="border:0;" allowfullscreen=""
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                                 <h2 class="box-title">Contact Detail</h2>
                                 <div class="wrap-icon-box">
@@ -67,7 +64,7 @@
                                         <i class="fa fa-envelope" aria-hidden="true"></i>
                                         <div class="right-info">
                                             <b>Email</b>
-                                            <p>Support1@Mercado.com</p>
+                                            <p>{{ $setting->email }}</p>
                                         </div>
                                     </div>
 
@@ -75,15 +72,15 @@
                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                         <div class="right-info">
                                             <b>Phone</b>
-                                            <p>0123-465-789-111</p>
+                                            <p>{{ $setting->phone }}</p>
                                         </div>
                                     </div>
 
                                     <div class="icon-box-item">
                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                         <div class="right-info">
-                                            <b>Mail Office</b>
-                                            <p>Sed ut perspiciatis unde omnis<br />Street Name, Los Angeles</p>
+                                            <b>Address</b>
+                                            <p>{{ $setting->address }}</p>
                                         </div>
                                     </div>
 
