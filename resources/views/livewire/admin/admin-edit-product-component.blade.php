@@ -25,7 +25,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Product Name" wire:keyup="generateSlug"
                                         class="form-control input-md" wire:model="name">
-                                        @error('name')
+                                    @error('name')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Product Slug" class="form-control input-md"
                                         wire:model="slug">
-                                        @error('slug')
+                                    @error('slug')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -64,7 +64,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Regular Price" class="form-control input-md"
                                         wire:model="regular_price">
-                                        @error('regular_price')
+                                    @error('regular_price')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -74,7 +74,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Sale Price" class="form-control input-md"
                                         wire:model="sale_price">
-                                        @error('sale_price')
+                                    @error('sale_price')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -84,7 +84,7 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="SKU" class="form-control input-md"
                                         wire:model="SKU">
-                                        @error('SKU')
+                                    @error('SKU')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -97,8 +97,8 @@
                                         <option value="outofinstock">Out of Stock</option>
                                     </select>
                                     @error('stock')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
@@ -108,7 +108,7 @@
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
-                                    
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -116,9 +116,9 @@
                                 <div class="col-md-4">
                                     <input type="text" placeholder="Quantity" class="form-control input-md"
                                         wire:model="quantity">
-                                        @error('quantity')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                    @error('quantity')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
@@ -132,8 +132,29 @@
                                             width="120" alt="">
                                     @endif
                                     @error('newImage')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-4 control-label">Product Gallery</label>
+                                <div class="col-md-4">
+                                    <input type="file" class="input-file" wire:model="newImages" multiple>
+                                    @if ($newImages)
+                                        @foreach ($newImages as $newImage)
+                                            @if ($newImage)
+                                                <img src="{{ $newImage->temporaryUrl() }}" width="120"
+                                                    alt="">
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach ($images as $image)
+                                            @if ($image)
+                                                <img src="{{ asset('assets/images/products') }}/{{ $image }}"
+                                                    width="120" alt="">
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group">
@@ -146,8 +167,8 @@
                                         @endforeach
                                     </select>
                                     @error('category_id')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 

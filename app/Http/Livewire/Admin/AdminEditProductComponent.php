@@ -28,6 +28,9 @@ class AdminEditProductComponent extends Component
     public $newImage;
     public $product_id;
 
+    public $images;
+    public $newImages;
+
     public function mount($product_slug)
     {
         $product = Product::where('slug', $product_slug)->first();
@@ -42,15 +45,19 @@ class AdminEditProductComponent extends Component
         $this->featured=$product->featured;
         $this->quantity=$product->quantity;
         $this->image=$product->image;
+        $this->images= explode(",", $product->images);
         $this->category_id=$product->category_id;
         $this->product_id=$product->id;
     }
-    public function generateSlug(){
-        $this->slug = Str::slug($this->name,'-');
+    public function generateSlug()
+    {
+        $this->slug = Str::slug($this->name, '-');
     }
     public function updated($fields)
     {
-        $this->validateOnly($fields,[
+        $this->validateOnly(
+            $fields,
+            [
             'name' => ['required'],
             'slug' => ['required',  Rule::unique('products')->ignore($this->product_id)],
             'short_description' => ['required'],
@@ -62,12 +69,20 @@ class AdminEditProductComponent extends Component
             'quantity' => ['required', 'numeric'],
             'category_id' => ['required']
         ],
-    [
+            [
         'SKU' => "The SKU field is required."
-    ]);
+    ]
+        );
+        if($this->newImage){
+            $this->validateOnly($fields,[
+                'newImage' => 'required|mimes"jpeg,png'
+            ]);
+        }
     }
-    public function updateProduct(){
-        $this->validate([
+    public function updateProduct()
+    {
+        $this->validate(
+            [
             'name' => ['required'],
             'slug' => ['required',  Rule::unique('products')->ignore($this->product_id)],
             'short_description' => ['required'],
@@ -79,9 +94,15 @@ class AdminEditProductComponent extends Component
             'quantity' => ['required', 'numeric'],
             'category_id' => ['required']
         ],
-        [
+            [
             'SKU' => "The SKU field is required."
-        ]);
+        ]
+        );
+        if($this->newImage){
+            $this->validate([
+                'newImage' => 'required|mimes"jpeg,png'
+            ]);
+        }
         $product = Product::find($this->product_id);
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -93,11 +114,31 @@ class AdminEditProductComponent extends Component
         $product->stock_status = $this->stock_status;
         $product->featured = $this->featured;
         $product->quantity = $this->quantity;
-        if($this->newImage){
-            $imageName = Carbon::now()->timestamp. '.' . $this->newImage->extension();
-            $this->newImage->storeAs('products',$imageName);
+        if($this->newImage) {
+            unlink('assets/images/products'.'/'.$product->image);
+            $imageName = Carbon::now()->timestamp . '.' . $this->newImage->extension();
+            $this->newImage->storeAs('products', $imageName);
             $product->image = $imageName;
         }
+
+        if($this->newImages) {
+            if($product->images) {
+                $images = explode(",", $product->images);
+                foreach($images as $image) {
+                    if($image) {
+                        unlink('assets/images/products'.'/'.$image);
+                    }
+                }
+            }
+            $imagesName = "";
+            foreach($this->newImages as $key=>$image) {
+                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $image->storeAs('products', $imgName);
+                $imagesName = $imagesName . ',' . $imgName;
+            }
+            $product->images = $imagesName;
+        }
+
         $product->category_id = $this->category_id;
         $product->update();
         session()->flash('message', 'Product has been updated successfully!');
@@ -105,7 +146,7 @@ class AdminEditProductComponent extends Component
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.admin.admin-edit-product-component',compact([
+        return view('livewire.admin.admin-edit-product-component', compact([
             'categories'
         ]))->layout('layouts.base');
     }
