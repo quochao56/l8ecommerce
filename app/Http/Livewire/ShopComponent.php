@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Gloudemans\Shoppingcart\Facades\Cart; // Import the Cart facade
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Product;
@@ -63,6 +64,11 @@ class ShopComponent extends Component
         }
         // whereBetween('regular_price', [$this->min_price, $this->max_price])
         $categories = Category::all();
+
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+        }
+
         $totalResults = $products->total();
         $startIndex = ($products->currentPage() - 1) * $products->perPage() + 1;
         $endIndex = min($startIndex + $products->count() - 1, $totalResults);
