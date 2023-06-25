@@ -11,6 +11,17 @@
         .sclist {
             list-style: none;
         }
+
+        .sclist li{
+            line-height: 33px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .slink i{
+            font-size: 16px;
+            margin-left: 12px;
+        }
+
     </style>
     <div class="container" style="padding: 30px 0">
         <div class="row">
@@ -46,8 +57,13 @@
                                                 <ul class="sclist">
                                                     @foreach ($category->subcategories as $scategory)
                                                         <li><i class="fa fa-caret-right"></i>{{ $scategory->name }} <a
-                                                                href="{{ route('admin.editcategory', ['category_slug' => $category->slug, 'scategory_slug' => $scategory->slug]) }}"><i
-                                                                    class="fa fa-edit"></i></a></li>
+                                                                href="{{ route('admin.editcategory', ['category_slug' => $category->slug, 'scategory_slug' => $scategory->slug]) }}" class="slink"><i
+                                                                    class="fa fa-edit"></i></a>
+                                                            <a href="#"
+                                                                wire:click.prevent="deleteSubcategory({{ $scategory->id }})"
+                                                                onclick="confirmDeleteSubcategory('{{ $scategory->id }}');"><i
+                                                                    class="fa fa-times text-danger"></i></a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </td>
@@ -57,7 +73,7 @@
                                                         class="fa fa-edit fa-2x"></i></a>
                                                 <a href="#"
                                                     wire:click.prevent="deleteCategory({{ $category->id }})"
-                                                    onclick="confirmDelete('{{ $category->id }}');"
+                                                    onclick="confirmDeleteCategory('{{ $category->id }}');"
                                                     style="margin-left: 10px;">
                                                     <i class="fa fa-times fa-2x text-danger"></i>
                                                 </a>
@@ -83,7 +99,7 @@
 </div>
 @push('scripts')
     <script>
-        function confirmDelete(categoryId) {
+        function confirmDeleteCategory(categoryId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: 'You are about to delete the category',
@@ -95,7 +111,28 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emit('deleteConfirmed', categoryId);
+                    Livewire.emit('deleteConfirmedCategory', categoryId);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            });
+        }
+        function confirmDeleteSubcategory(scategoryId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to delete the sub category',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('deleteConfirmedSubcategory', scategoryId);
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

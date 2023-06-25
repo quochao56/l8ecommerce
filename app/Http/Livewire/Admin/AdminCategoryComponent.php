@@ -3,15 +3,22 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class AdminCategoryComponent extends Component
 {
     use WithPagination;
-    protected $listeners = ['deleteConfirmed'];
-    public function mount(){
-    $this->listeners[] = 'deleteConfirmed';
+    protected $listeners = [
+        'deleteConfirmedCategory',
+        'deleteConfirmedSubcategory'
+    ];
+
+    public function mount()
+    {
+        $this->listeners[] = 'deleteConfirmedCategory';
+        $this->listeners[] = 'deleteConfirmedOther';
     }
     public function deleteCategory($id)
     {
@@ -20,13 +27,29 @@ class AdminCategoryComponent extends Component
             abort(404);
         }
     }
-    public function deleteConfirmed($id)
+    public function deleteConfirmedCategory($id)
     {
         $category = Category::find($id);
         if (!$category) {
             abort(404);
         }
         $category->delete();
+    }
+    public function deleteSubcategory($id){
+        $scategory = Subcategory::find($id);
+        if (!$scategory) {
+            abort(404);
+        }
+    }
+
+    public function deleteConfirmedSubcategory($id)
+    {
+        $scategory = Subcategory::find($id);
+        if (!$scategory) {
+            abort(404);
+        }
+
+        $scategory->delete();
     }
     public function render()
     {
