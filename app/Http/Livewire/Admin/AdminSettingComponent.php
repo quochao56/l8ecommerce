@@ -64,21 +64,22 @@ class AdminSettingComponent extends Component
             'youtube' => 'required',
         ]);
         $setting = Setting::find(1);
-        if($setting) {
+        if(!$setting) {
             $setting = new Setting();
-            $setting->email = $this->email;
-            $setting->phone = $this->phone;
-            $setting->phone2 = $this->phone2;
-            $setting->address = $this->address;
-            $setting->map = $this->map;
-            $setting->twiter = $this->twiter;
-            $setting->facebook = $this->facebook;
-            $setting->pinterest = $this->pinterest;
-            $setting->instagram = $this->instagram;
-            $setting->youtube = $this->youtube;
-            $setting->save();
-            session()->flash('message','Settings has been saved successfully!');
         }
+        $setting->email = $this->email;
+        $setting->phone = $this->phone;
+        $setting->phone2 = $this->phone2;
+        $setting->address = $this->address;
+        $setting->map = $this->map;
+        $setting->twiter = $this->twiter;
+        $setting->facebook = $this->facebook;
+        $setting->pinterest = $this->pinterest;
+        $setting->instagram = $this->instagram;
+        $setting->youtube = $this->youtube;
+        $setting->save();
+        session()->flash('message', 'Settings has been saved successfully!');
+
     }
 
     public function render()
