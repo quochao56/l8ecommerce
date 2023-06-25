@@ -233,7 +233,7 @@ class CheckoutComponent extends Component
             session()->flash('error', $e->getMessage());
             $this->thankyou = 0;
         }
-    $this->sendOrderConfirmationMail($order);
+    // $this->sendOrderConfirmationMail($order);
 
     }
     public function resetCart()
