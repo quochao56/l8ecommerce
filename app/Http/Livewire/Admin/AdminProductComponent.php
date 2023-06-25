@@ -10,8 +10,9 @@ class AdminProductComponent extends Component
 {
     use WithPagination;
     protected $listeners = ['deleteConfirmed'];
-    public function mount(){
-    $this->listeners[] = 'deleteConfirmed';
+    public function mount()
+    {
+        $this->listeners[] = 'deleteConfirmed';
     }
     public function deleteProduct($id)
     {
@@ -19,17 +20,23 @@ class AdminProductComponent extends Component
         if (!$products) {
             abort(404);
         }
-        // Show the SweetAlert confirmation dialog
-        $this->dispatchBrowserEvent('showDeleteConfirmation', [
-            'productId' => $products->id,
-            'productName' => $products->name,
-        ]);
     }
     public function deleteConfirmed($id)
     {
         $product = Product::find($id);
         if (!$product) {
             abort(404);
+        }
+        if($product->image) {
+            unlink('assets/images/products'.'/'.$product->image);
+        }
+        if($product->images) {
+            $images = explode(",", $product->images);
+            foreach($images as $image) {
+                if(!$image == null){
+                    unlink('assets/images/products/'.$image);
+                }
+            }
         }
         $product->delete();
     }
@@ -40,7 +47,7 @@ class AdminProductComponent extends Component
         $startIndex = ($products->currentPage() - 1) * $products->perPage() + 1;
         $endIndex = min($startIndex + $products->count() - 1, $totalResults);
 
-        return view('livewire.admin.admin-product-component',compact([
+        return view('livewire.admin.admin-product-component', compact([
             'products',
             'startIndex',
             'endIndex',
