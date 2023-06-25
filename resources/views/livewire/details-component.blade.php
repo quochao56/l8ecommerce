@@ -27,6 +27,17 @@
                                     <img src="{{ asset('assets/images/products') }}/{{ $product->image }}"
                                         alt="{{ $product->name }}" />
                                 </li>
+                                @php
+                                    $images = explode(',', $product->images);
+                                @endphp
+                                @foreach ($images as $image)
+                                    @if ($image)
+                                        <li data-thumb="{{ asset('assets/images/products') }}/{{ $image }}">
+                                            <img src="{{ asset('assets/images/products') }}/{{ $product->image }}"
+                                                alt="{{ $product->name }}" />
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -140,27 +151,34 @@
 
                                 <div class="wrap-review-form">
                                     <style>
-                                        .width-0-percent{
+                                        .width-0-percent {
                                             width: 0%;
                                         }
-                                        .width-20-percent{
+
+                                        .width-20-percent {
                                             width: 20%;
                                         }
-                                        .width-40-percent{
+
+                                        .width-40-percent {
                                             width: 40%;
                                         }
-                                        .width-60-percent{
+
+                                        .width-60-percent {
                                             width: 60%;
                                         }
-                                        .width-80-percent{
+
+                                        .width-80-percent {
                                             width: 80%;
                                         }
-                                        .width-100-percent{
+
+                                        .width-100-percent {
                                             width: 100%;
-                                        }                                        
+                                        }
                                     </style>
                                     <div id="comments">
-                                        <h2 class="woocommerce-Reviews-title">{{ $product->orderItems->where('rstatus', 1)->count()}} review for <span>{{ $product->name }}</span></h2>
+                                        <h2 class="woocommerce-Reviews-title">
+                                            {{ $product->orderItems->where('rstatus', 1)->count() }} review for
+                                            <span>{{ $product->name }}</span></h2>
                                         <ol class="commentlist">
                                             @foreach ($product->orderItems->where('rstatus', 1) as $orderItem)
                                                 <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"
@@ -171,8 +189,11 @@
                                                             height="80" width="80">
                                                         <div class="comment-text">
                                                             <div class="star-rating">
-                                                                <span class="width-{{ $orderItem->review->rating * 20 }}-percent">Rated <strong
-                                                                        class="rating">{{ $orderItem->review->rating }}</strong> out of 5</span>
+                                                                <span
+                                                                    class="width-{{ $orderItem->review->rating * 20 }}-percent">Rated
+                                                                    <strong
+                                                                        class="rating">{{ $orderItem->review->rating }}</strong>
+                                                                    out of 5</span>
                                                             </div>
                                                             <p class="meta">
                                                                 <strong

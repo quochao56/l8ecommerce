@@ -25,6 +25,8 @@ class AdminAddProductComponent extends Component
     public $image;
     public $category_id;
 
+    public $images;
+
     public function mount()
     {
         $this->stock_status = 'instock';
@@ -36,7 +38,9 @@ class AdminAddProductComponent extends Component
     }
     public function updated($fields)
     {
-        $this->validateOnly($fields,[
+        $this->validateOnly(
+            $fields,
+            [
             'name' => ['required'],
             'slug' => ['required', 'unique:products'],
             'short_description' => ['required'],
@@ -49,13 +53,15 @@ class AdminAddProductComponent extends Component
             'image' => ['required', 'mimes:jpeg,png'],
             'category_id' => ['required']
         ],
-    [
+            [
         'SKU' => "The SKU field is required."
-    ]);
+    ]
+        );
     }
     public function storeProduct()
     {
-        $this->validate([
+        $this->validate(
+            [
             'name' => ['required'],
             'slug' => ['required', 'unique:products'],
             'short_description' => ['required'],
@@ -68,9 +74,10 @@ class AdminAddProductComponent extends Component
             'image' => ['required', 'mimes:jpeg,png'],
             'category_id' => ['required']
         ],
-        [
+            [
             'SKU' => "The SKU field is required."
-        ]);
+        ]
+        );
         $product = new Product();
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -85,6 +92,15 @@ class AdminAddProductComponent extends Component
         $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
         $this->image->storeAs('products', $imageName);
         $product->image = $imageName;
+        if($this->images) {
+            $imagesname = "";
+            foreach($this->images as $key=>$image) {
+                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $image->storeAs('products',$imgName);
+                $imagesname =  $imagesname . ',' . $imgName;
+            }
+            $product->images = $imagesname;
+        }
         $product->category_id = $this->category_id;
         $product->save();
         session()->flash('message', 'Product has been created successfully!');
