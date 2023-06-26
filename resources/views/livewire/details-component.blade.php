@@ -90,7 +90,27 @@
                         <div class="stock-info in-stock">
                             <p class="availability">Availability: <b>{{ $product->stock_status }}</b></p>
                         </div>
-                        <div class="quantity">
+
+                        <div>
+                            @foreach ($product->attributeValues->unique('product_attribute_id') as $av)
+                                <div class="row" style="margin-top: 20px;">
+                                    <div class="col xs-2">
+
+                                        <p>{{ $av->productAttribute->name }}</p>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <select name="" id="" class="form-control"
+                                            style="width: 200px;">
+                                            @foreach ($av->productAttribute->attributeValues->where('product_id', $product->id) as $pav)
+                                                <option value="{{ $pav->id }}">{{ $pav->value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="quantity" style="margin-top: 10px;">
                             <span>Quantity:</span>
                             <div class="quantity-input">
                                 <input type="text" name="product-quatity" value="1" data-max="120"
@@ -100,6 +120,7 @@
                                 <a class="btn btn-increase" href="#" wire:click.prevent="increaseQuantity"></a>
                             </div>
                         </div>
+
                         <div class="wrap-butons">
                             @if ($product->sale_price > 0 && $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now())
                                 <a href="#" class="btn add-to-cart"
@@ -116,6 +137,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="advance-info">
                         <div class="tab-control normal">
                             <a href="#description" class="tab-control-item active">description</a>
@@ -178,13 +200,14 @@
                                     <div id="comments">
                                         <h2 class="woocommerce-Reviews-title">
                                             {{ $product->orderItems->where('rstatus', 1)->count() }} review for
-                                            <span>{{ $product->name }}</span></h2>
+                                            <span>{{ $product->name }}</span>
+                                        </h2>
                                         <ol class="commentlist">
                                             @foreach ($product->orderItems->where('rstatus', 1) as $orderItem)
                                                 <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"
                                                     id="li-comment-20">
                                                     <div id="comment-20" class="comment_container">
-                                                        <img alt="{{$orderItem->order->user->name}}"
+                                                        <img alt="{{ $orderItem->order->user->name }}"
                                                             src="{{ asset('assets/images/profile') }}/{{ $orderItem->order->user->profile->image }}"
                                                             height="80" width="80">
                                                         <div class="comment-text">
