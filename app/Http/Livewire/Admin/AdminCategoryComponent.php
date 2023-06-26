@@ -12,13 +12,11 @@ class AdminCategoryComponent extends Component
     use WithPagination;
     protected $listeners = [
         'deleteConfirmedCategory',
-        'deleteConfirmedSubcategory'
     ];
 
     public function mount()
     {
         $this->listeners[] = 'deleteConfirmedCategory';
-        $this->listeners[] = 'deleteConfirmedOther';
     }
     public function deleteCategory($id)
     {
@@ -34,22 +32,6 @@ class AdminCategoryComponent extends Component
             abort(404);
         }
         $category->delete();
-    }
-    public function deleteSubcategory($id){
-        $scategory = Subcategory::find($id);
-        if (!$scategory) {
-            abort(404);
-        }
-    }
-
-    public function deleteConfirmedSubcategory($id)
-    {
-        $scategory = Subcategory::find($id);
-        if (!$scategory) {
-            abort(404);
-        }
-
-        $scategory->delete();
     }
     public function render()
     {

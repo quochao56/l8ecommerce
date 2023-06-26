@@ -43,7 +43,6 @@
                                         <th>Id</th>
                                         <th>Category Name</th>
                                         <th>Slug</th>
-                                        <th>Sub Category</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -53,20 +52,6 @@
                                             <td>{{ $category->id }}</td>
                                             <td>{{ $category->name }}</td>
                                             <td>{{ $category->slug }}</td>
-                                            <td>
-                                                <ul class="sclist">
-                                                    @foreach ($category->subcategories as $scategory)
-                                                        <li><i class="fa fa-caret-right"></i>{{ $scategory->name }} <a
-                                                                href="{{ route('admin.editcategory', ['category_slug' => $category->slug, 'scategory_slug' => $scategory->slug]) }}" class="slink"><i
-                                                                    class="fa fa-edit"></i></a>
-                                                            <a href="#"
-                                                                wire:click.prevent="deleteSubcategory({{ $scategory->id }})"
-                                                                onclick="confirmDeleteSubcategory('{{ $scategory->id }}');"><i
-                                                                    class="fa fa-times text-danger"></i></a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </td>
                                             <td>
                                                 <a
                                                     href="{{ route('admin.editcategory', ['category_slug' => $category->slug]) }}"><i
@@ -112,27 +97,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('deleteConfirmedCategory', categoryId);
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            });
-        }
-        function confirmDeleteSubcategory(scategoryId) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'You are about to delete the sub category',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emit('deleteConfirmedSubcategory', scategoryId);
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

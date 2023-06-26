@@ -55,7 +55,7 @@
 
                     <div class="wrap-right">
 
-                         <div class="sort-item orderby ">
+                        <div class="sort-item orderby ">
                             <select name="orderby" class="use-chosen" wire:model="sorting">
                                 <option value="default" selected="selected">Default sorting</option>
                                 <option value="date">Sort by newness</option>
@@ -157,7 +157,8 @@
                     <div class="widget-content">
                         <ul class="list-category">
                             @foreach ($categories as $category)
-                                <li class="category-item">
+                                <li
+                                    class="category-item {{ count($category->subCategories) > 0 ? 'has-child-cate' : '' }}</li>s) }}">
                                     <a href="{{ route('product.category', ['category_slug' => $category->slug]) }}"
                                         class="cate-link">{{ $category->name }}</a>
                                 </li>
