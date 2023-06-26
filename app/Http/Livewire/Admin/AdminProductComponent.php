@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class AdminProductComponent extends Component
 {
     use WithPagination;
+    public $searchTerm;
     protected $listeners = ['deleteConfirmed'];
     public function mount()
     {
@@ -42,7 +43,13 @@ class AdminProductComponent extends Component
     }
     public function render()
     {
-        $products = Product::paginate(10);
+        $search = '%' . $this->searchTerm . '%';
+        $products = Product::where('name','LIKE',$search)
+                            ->orWhere('stock_status','LIKE',$search)
+                            ->orWhere('regular_price','LIKE',$search)
+                            ->orWhere('sale_price','LIKE',$search)
+                            ->orderBy('id','DESC')
+                            ->paginate(10);
         $totalResults = $products->total();
         $startIndex = ($products->currentPage() - 1) * $products->perPage() + 1;
         $endIndex = min($startIndex + $products->count() - 1, $totalResults);
