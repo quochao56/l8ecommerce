@@ -51,7 +51,6 @@ class UserEditProfileComponent extends Component
             $imageName = Carbon::now()->timestamp . '.' . $this->newImage->extension();
             $this->newImage->storeAs('profile', $imageName);
             $user->profile->image = $imageName;
-            
         }
         $user->profile->line1 = $this->line1;
         $user->profile->line2 = $this->line2;
@@ -59,6 +58,7 @@ class UserEditProfileComponent extends Component
         $user->profile->province = $this->province;
         $user->profile->country = $this->country;
         $user->profile->zipcode = $this->zipcode;
+        
         $user->profile->update();
         session()->flash('message', "Profile has been updated successfully!");
     }

@@ -40,7 +40,6 @@ class DetailsComponent extends Component
     {
         // lấy product đầu tiên với truy vấn là 'slug' được truyền tự web.php và 'slug' này lấy từ func mount
         $product = Product::where('slug', $this->slug)->first();
-
         $popular_products = Product::inRandomOrder()->limit(4)->get();
         $related_products = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(5)->get();
         $sale = Sale::find(1);
