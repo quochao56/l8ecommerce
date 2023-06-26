@@ -45,13 +45,13 @@ class CategoryComponent extends Component
         $category_name = $category->name;
         // sort
         if($this->sorting=="date") {
-            $products = Product::where($filter.'category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('created_at', 'DESC')->paginate($this->pagesize);
+            $products = Product::where('category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('created_at', 'DESC')->paginate($this->pagesize);
         } elseif($this->sorting=="price") {
-            $products = Product::where($filter.'category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'ASC')->paginate($this->pagesize);
+            $products = Product::where('category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'ASC')->paginate($this->pagesize);
         } elseif($this->sorting=="price-desc") {
-            $products = Product::where($filter . 'category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'DESC')->paginate($this->pagesize);
+            $products = Product::where('category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'DESC')->paginate($this->pagesize);
         } else {
-            $products = Product::where($filter . 'category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->paginate($this->pagesize);
+            $products = Product::where('category_id', $category_id)->whereBetween('regular_price', [$this->min_price, $this->max_price])->paginate($this->pagesize);
         }
 
         $categories = Category::all();

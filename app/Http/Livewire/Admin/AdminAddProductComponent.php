@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\AttributeValue;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -27,6 +29,10 @@ class AdminAddProductComponent extends Component
 
     public $images;
 
+    public $attr;
+    public $inputs = [];
+    public $attribute_arr = [];
+    public $attribute_values;
     public function mount()
     {
         $this->stock_status = 'instock';
@@ -105,10 +111,31 @@ class AdminAddProductComponent extends Component
         if($product->save()) {
             session()->flash('message', 'Product has been created successfully!');
         }
+
+        foreach($this->attribute_values as $key=>$attribute_value){
+            $avalues = explode(",",$attribute_value);
+            foreach($avalues as $avalue){
+                $attr_value = new AttributeValue();
+                $attr_value->product_attribute_id = $key;
+                $attr_value->value = $avalue;
+                $attr_value->product_id = $product->id;
+                $attr_value->save();
+            }
+        }
+    }
+    public function add(){
+        if(!in_array($this->attr,$this->attribute_arr)){
+            array_push($this->inputs,$this->attr);
+            array_push($this->attribute_arr,$this->attr);
+        }
+    }
+    public function remove($attr){
+        unset( $this->inputs[$attr]);
     }
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.admin.admin-add-product-component', compact(['categories']))->layout('layouts.base');
+        $pattributes = ProductAttribute::all();
+        return view('livewire.admin.admin-add-product-component', compact(['categories','pattributes']))->layout('layouts.base');
     }
 }
