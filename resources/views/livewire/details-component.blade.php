@@ -95,14 +95,13 @@
                             @foreach ($product->attributeValues->unique('product_attribute_id') as $av)
                                 <div class="row" style="margin-top: 20px;">
                                     <div class="col xs-2">
-
                                         <p>{{ $av->productAttribute->name }}</p>
                                     </div>
                                     <div class="col-xs-10">
-                                        <select name="" id="" class="form-control"
+                                        <select name="" id="" class="form-control" wire:model="satt.{{ $av->productAttribute->name }}" 
                                             style="width: 200px;">
                                             @foreach ($av->productAttribute->attributeValues->where('product_id', $product->id) as $pav)
-                                                <option value="{{ $pav->id }}">{{ $pav->value }}</option>
+                                            <option value="{{ $pav->value }}">{{ $pav->value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
