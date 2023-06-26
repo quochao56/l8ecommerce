@@ -33,8 +33,9 @@ class AdminAddHomeSliderComponent extends Component
         $this->image->storeAs('sliders', $imageName);
         $slider->image = $imageName;
         $slider->status = $this->status;
-        $slider->save();
-        session()->flash('message', 'Slider has been created successfully!');
+        if($slider->save()) {
+            session()->flash('message', 'Slider has been created successfully!');
+        }
     }
     public function render()
     {

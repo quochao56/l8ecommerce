@@ -13,25 +13,27 @@ class UserChangePasswordComponent extends Component
     public $password;
     public $password_confirmation;
 
-    public function updated($fields){
-        $this->validateOnly($fields,[
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed|different:current_password',
         ]);
     }
-    public function changePassword(){
+    public function changePassword()
+    {
         $this->validate([
             'current_password' => 'required',
             'password' => 'required|min:8|confirmed|different:current_password',
         ]);
-        if(Hash::check($this->current_password,Auth::user()->password)){
+        if(Hash::check($this->current_password, Auth::user()->password)) {
             $user = User::findOrFail(Auth::user()->id);
             $user->password = Hash::make($this->password);
-            $user->update();
-            session()->flash('password_success','Your password has been changed successfully!');
-
-        }else{
-            session()->flash('password_error','Password does not match!');
+            if($user->save()) {
+                session()->flash('password_success', 'Your password has been changed successfully!');
+            }
+        } else {
+            session()->flash('password_error', 'Password does not match!');
 
         }
     }

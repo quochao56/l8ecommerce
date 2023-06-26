@@ -58,9 +58,10 @@ class UserEditProfileComponent extends Component
         $user->profile->province = $this->province;
         $user->profile->country = $this->country;
         $user->profile->zipcode = $this->zipcode;
-        
-        $user->profile->update();
-        session()->flash('message', "Profile has been updated successfully!");
+
+        if($user->profile->save()) {
+            session()->flash('message', "Profile has been updated successfully!");
+        }
     }
     public function render()
     {

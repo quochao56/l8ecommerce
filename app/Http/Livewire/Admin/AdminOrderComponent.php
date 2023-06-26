@@ -8,26 +8,27 @@ use Livewire\Component;
 
 class AdminOrderComponent extends Component
 {
-    public function updateOrderStatus($order_id,$status){
+    public function updateOrderStatus($order_id, $status)
+    {
         $order = Order::find($order_id);
         $order->status = $status;
-        if($status == "delivered"){
+        if($status == "delivered") {
             $order->delivered_date = DB::raw('CURRENT_DATE');
-        }
-        else if($status == "canceled"){
+        } elseif($status == "canceled") {
             $order->canceled_date = DB::raw('CURRENT_DATE');
         }
-        $order->save();
-        session()->flash('order_message','Order status has been updated successfully');
+        if($order->save()) {
+            session()->flash('order_message', 'Order status has been updated successfully');
+        }
     }
     public function render()
     {
-        $orders = Order::orderBy('created_at',"DESC")->paginate(13);
+        $orders = Order::orderBy('created_at', "DESC")->paginate(13);
         $totalResults = $orders->total();
         $startIndex = ($orders->currentPage() - 1) * $orders->perPage() + 1;
         $endIndex = min($startIndex + $orders->count() - 1, $totalResults);
 
-        return view('livewire.admin.admin-order-component',compact([
+        return view('livewire.admin.admin-order-component', compact([
             'orders',
             'startIndex',
             'endIndex',

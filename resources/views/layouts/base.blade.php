@@ -116,6 +116,10 @@
                                                             href="{{ route('admin.categories') }}">Categories</a>
                                                     </li>
                                                     <li class="menu-item">
+                                                        <a title="Attribute"
+                                                            href="{{ route('admin.attribute') }}">Attributes</a>
+                                                    </li>
+                                                    <li class="menu-item">
                                                         <a title="Products" href="{{ route('admin.products') }}">All
                                                             Products</a>
                                                     </li>

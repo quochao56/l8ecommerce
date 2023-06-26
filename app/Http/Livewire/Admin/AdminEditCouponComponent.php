@@ -51,8 +51,9 @@ class AdminEditCouponComponent extends Component
         $coupon->value = $this->value;
         $coupon->cart_value = $this->cart_value;
         $coupon->expiry_date = $this->expiry_date;
-        $coupon->update();
-        session()->flash('message', 'Coupon has been updated successfully');
+        if($coupon->save()) {
+            session()->flash('message', 'Coupon has been updated successfully');
+        }
     }
 
     public function render()

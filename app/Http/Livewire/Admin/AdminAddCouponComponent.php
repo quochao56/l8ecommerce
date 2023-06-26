@@ -13,8 +13,9 @@ class AdminAddCouponComponent extends Component
     public $cart_value;
     public $expiry_date;
 
-    public function updated($fields){
-        $this->validateOnly($fields,[
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
             'code' =>'required|unique:coupons',
             'type'=>'required',
             'value' => 'required|numeric',
@@ -23,7 +24,8 @@ class AdminAddCouponComponent extends Component
         ]);
     }
 
-    public function storeCoupon(){
+    public function storeCoupon()
+    {
         $this->validate([
             'code' =>'required|unique:coupons',
             'type'=>'required',
@@ -37,8 +39,9 @@ class AdminAddCouponComponent extends Component
         $coupon->value = $this->value;
         $coupon->cart_value = $this->cart_value;
         $coupon->expiry_date = $this->expiry_date;
-        $coupon->save();
-        session()->flash('message','Coupon has been created successfully');
+        if($coupon->save()) {
+            session()->flash('message', 'Coupon has been created successfully');
+        }
     }
     public function render()
     {

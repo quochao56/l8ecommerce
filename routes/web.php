@@ -1,14 +1,17 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Http\Livewire\Admin\AdminEditAttributeComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
@@ -123,6 +126,10 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
         // Setting
         Route::get('/settings',AdminSettingComponent::class)->name('admin.settings');
 
+        // Attribute
+        Route::get('attribute',AdminAttributeComponent::class)->name('admin.attribute');
+        Route::get('attribute/add',AdminAddAttributeComponent::class)->name('admin.add-attribute');
+        Route::get('attribute/edit/{attribute_id}',AdminEditAttributeComponent::class)->name('admin.edit-attribute');
     });
 
 });

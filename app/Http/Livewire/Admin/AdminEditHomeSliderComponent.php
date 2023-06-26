@@ -30,21 +30,22 @@ class AdminEditHomeSliderComponent extends Component
         $this->newImage = $slider->newImage;
         $this->slider_id = $slider_id;
     }
-    public function updateSlider(){
+    public function updateSlider()
+    {
         $slider = HomeSlider::find($this->slider_id);
         $slider->title = $this->title;
         $slider->subtitle = $this->subtitle;
         $slider->price = $this->price;
         $slider->link = $this->link;
-       if($this->newImage){
+        if($this->newImage) {
             $imageName = Carbon::now()->timestamp. '.' . $this->newImage->extension();
-            $this->newImage->storeAs('sliders',$imageName);
+            $this->newImage->storeAs('sliders', $imageName);
             $slider->image = $imageName;
         }
         $slider->status = $this->status;
-        $slider->update();
-        session()->flash('message', 'Slider has been updated successfully!');
-
+        if($slider->save()) {
+            session()->flash('message', 'Slider has been updated successfully!');
+        }
     }
     public function render()
     {

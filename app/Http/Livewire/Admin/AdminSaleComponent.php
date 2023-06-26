@@ -15,12 +15,14 @@ class AdminSaleComponent extends Component
         $this->sale_date = $sale->sale_date;
         $this->status = $sale->status;
     }
-    public function updateSale(){
+    public function updateSale()
+    {
         $sale = Sale::find(1);
         $sale->sale_date = $this->sale_date;
         $sale->status = $this->status;
-        $sale->save();
-        session()->flash('message','Record has been updated successfully');
+        if($sale->save()) {
+            session()->flash('message', 'Record has been updated successfully');
+        }
     }
     public function render()
     {

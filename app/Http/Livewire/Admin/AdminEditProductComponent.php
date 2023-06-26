@@ -73,8 +73,8 @@ class AdminEditProductComponent extends Component
         'SKU' => "The SKU field is required."
     ]
         );
-        if($this->newImage){
-            $this->validateOnly($fields,[
+        if($this->newImage) {
+            $this->validateOnly($fields, [
                 'newImage' => 'required|mimes"jpeg,png'
             ]);
         }
@@ -98,7 +98,7 @@ class AdminEditProductComponent extends Component
             'SKU' => "The SKU field is required."
         ]
         );
-        if($this->newImage){
+        if($this->newImage) {
             $this->validate([
                 'newImage' => 'required|mimes"jpeg,png'
             ]);
@@ -140,8 +140,9 @@ class AdminEditProductComponent extends Component
         }
 
         $product->category_id = $this->category_id;
-        $product->update();
-        session()->flash('message', 'Product has been updated successfully!');
+        if($product->save()) {
+            session()->flash('message', 'Product has been updated successfully!');
+        }
     }
     public function render()
     {
