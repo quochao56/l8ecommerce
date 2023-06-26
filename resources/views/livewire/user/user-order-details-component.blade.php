@@ -64,6 +64,13 @@
                                             <a class="link-to-product"
                                                 href="{{ route('product.details', ['slug' => $item->product->slug]) }}">{{ $item->product->name }}</a>
                                         </div>
+                                        @if ($item->options)
+                                            <div class="product-name">
+                                                @foreach (unserialize($item->options) as $key => $value)
+                                                    <p><b>{{ $key }}:{{ $value }}</b></p>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <div class="price-field produtc-price">
                                             <p class="price">{{ $item->price }}</p>
                                         </div>
@@ -78,7 +85,9 @@
                                         </div>
                                         <div class="price-field sub-total">
                                             @if ($order->status == 'delivered' && $item->rstatus == false)
-                                                <p class="price"><a href="{{ route('user.review',['order_item_id'=>$item->id]) }}">Write Review</a></p>
+                                                <p class="price"><a
+                                                        href="{{ route('user.review', ['order_item_id' => $item->id]) }}">Write
+                                                        Review</a></p>
                                             @endif
                                         </div>
                                     </li>

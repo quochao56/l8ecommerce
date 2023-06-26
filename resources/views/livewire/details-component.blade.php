@@ -94,7 +94,7 @@
                         <div>
                             @foreach ($product->attributeValues->unique('product_attribute_id') as $av)
                                 <div class="row" style="margin-top: 20px;">
-                                    <div class="col xs-2">
+                                    <div class="col-xs-2">
                                         <p>{{ $av->productAttribute->name }}</p>
                                     </div>
                                     <div class="col-xs-10">

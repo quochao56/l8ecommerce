@@ -49,7 +49,6 @@ class ShopComponent extends Component
     }
     public function render()
     {
-        $products = Product::paginate(12);
         if ($this->sorting == "date") {
             $products = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('created_at', 'DESC')
                 ->paginate($this->pagesize);
