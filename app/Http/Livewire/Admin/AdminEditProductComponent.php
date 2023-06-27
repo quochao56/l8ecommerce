@@ -143,7 +143,7 @@ class AdminEditProductComponent extends Component
         $product->stock_status = $this->stock_status;
         $product->featured = $this->featured;
         $product->quantity = $this->quantity;
-        if($this->newImage) {
+        if($this->newImage) { 
             unlink('assets/images/products'.'/'.$product->image);
             $imageName = Carbon::now()->timestamp . '.' . $this->newImage->extension();
             $this->newImage->storeAs('products', $imageName);

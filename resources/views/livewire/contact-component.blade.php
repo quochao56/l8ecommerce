@@ -33,7 +33,7 @@
                                     @error('email')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
-                                    <label for="phone">Number Phone</label>
+                                    <label for="phone">Number Phone<span>*</span></label>
                                     <input type="text" value="" id="phone" name="phone"
                                         wire:model="phone">
                                     @error('phone')
