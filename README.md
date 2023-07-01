@@ -1,66 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+**Không cần đăng nhập**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- header
+    
+    Login (gồm cả Facebook, Google), register và quên mật khẩu
+    
+    cart, wishlist
+    
+    search
+    
+- footer
+    
+    hiển thị các thông tin liên lạc được lấy từ DB
+    
+- **Home**
+    
+    slider → hiển thị các slider giới thiệu các sản phẩm nổi bật
+    
+    on sale → hiển thị các products đang được giảm giá
+    
+    lastest product → cản products mới nhất
+    
+    Product Categories → những categories được chọn sẽ được hiển thị trên Home từ table home_categories
+    
+- Shopping
+    
+    Filter:
+    
+    - Category
+    - Price
+    - sorting
+    - paginate
+    
+    Thêm vào cart, wishlist
+    
+- Details product
+    
+    Xem thông tin sản phẩm:
+    
+    - short description
+    - description
+    - review
+    - price
+    - attribute
+    
+    Xem thông tin các sản phẩm liên quan và phổ biến
+    
+    Đưa vào cart
+    
+    Chọn attribute và quantity đưa vào cart
+    
+- Cart
+    
+    Xem thông tin những sản phẩm đã đưa vào cart
+    
+    Thay đổi quantity sản phẩm hoặc xóa
+    
+    Đưa vào mục save later để vẫn giữ sản phẩm lại cart mà khi thanh toán không ảnh hưởng đến
+    
+    Xem các chi phí của các sản phẩm
+    
+    Nhập mã giảm giá
+    
+- Wishlist
+    
+    Lưu giữ các product yêu thích và để có thể đưa vào cart sau này
+    
+- Contact
+    
+    Gửi các thắc mắc 
+    
 
-## About Laravel
+****Cần đăng nhập****
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+logout
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- User
+    
+    Check out được đơn hàng được đặt và hệ thống sẽ gửi mail thông báo thông tin đơn hàng đã đặt
+    
+    Thanh toán bằng Stripe
+    
+    - Dashboard
+        
+        Xem thông tin lịch sử mua hàng
+        
+        Hủy đơn hàng đã đặt
+        
+    
+    Thay đổi thông tin cá nhân
+    
+    Thay đổi mật khẩu
+    
+- Admin
+    1. Dashboard: Xem đơn hàng và thông tin tiền bán hàng của website
+    2. Categories
+    3. Attribute: thuộc tính của products
+    4. All Products: tìm kiếm products
+    5. Manage Home Slider
+    6. Manage Home Categories
+    7. Sale setting: thiết lập thời gian giảm giá cho các sản phẩm 
+    8. All Coupons: tạo các mã giảm giá
+    9. All Orders: Xem đơn hàng và thay đổi trạng thái đơn
+    10. Contact message: quản lý các khiếu nại khách hàng
+    11. Settings: thiết lập thông tin cá nhân cho website được hiển thị trong footer và contact
