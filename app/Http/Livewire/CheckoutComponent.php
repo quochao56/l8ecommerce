@@ -7,14 +7,15 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
 use App\Models\Transaction;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
-use TheSeer\Tokenizer\Token;
+use Stripe\Token;
+use Stripe\Customer;
+use Stripe\Charge;
 
 class CheckoutComponent extends Component
 {
@@ -87,6 +88,13 @@ class CheckoutComponent extends Component
         }
     }
 
+    public function mount()
+    {
+        $this->card_no = '4242424242424242';
+        $this->exp_month = 12;
+        $this->exp_year = 2025;
+        $this->cvc = 123;
+    }
     public function placeOrder()
     {
         $this->validate([
@@ -110,8 +118,8 @@ class CheckoutComponent extends Component
                 'cvc' => 'required|numeric',
             ]);
         }
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $order = new Order();
             $order->user_id = Auth::user()->id;
             $order->subtotal = session()->get('checkout')['subtotal'];
@@ -137,7 +145,7 @@ class CheckoutComponent extends Component
                 $orderItem->order_id = $order->id;
                 $orderItem->price = $item->price;
                 $orderItem->quantity = $item->qty;
-                if($item->options){
+                if($item->options) {
                     $orderItem->options = serialize($item->options);
                 }
                 $orderItem->save();
@@ -172,64 +180,71 @@ class CheckoutComponent extends Component
             if($this->paymentmode == 'cod') {
                 $this->makeTransaction($order->id, 'pending');
                 $this->resetCart();
-            } elseif($this->paymentmode == 'card') {
+            } elseif ($this->paymentmode == 'card') {
 
-                $stripe = Stripe::make(env('STRIPE_KEY'));
-                $token = $stripe->tokens()->create([
+                $stripe = \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                // Generate a token for the card
+                $token = Token::create([
                     'card' => [
-                        "number" =>$this->card_no, //4242424242424242
-                        "exp_month"=>$this->exp_month,
-                        "exp_year"=>$this->exp_year,
-                        "cvc"=> $this->cvc,
-                    ]
+                        'number' => $this->card_no,
+                        'exp_month' => $this->exp_month,
+                        'exp_year' => $this->exp_year,
+                        'cvc' => $this->cvc,
+                    ],
                 ]);
-                // $token = 'tok_visa';
+                dd($token);
 
-                if(!isset($token['id'])) {
-                    dd('line181');
+
+                if (!$token) {
                     session()->flash('stripe_error', 'The stripe token was not generated correctly');
                     $this->thankyou = 0;
-                }
-
-                $customer = $stripe->customers()->create([
-                    'name' => $this->firstname . ' ' . $this->lastname,
-                    'email' => $this->email,
-                    'phone' => $this->mobile,
-                    'address' =>[
-                        'line1'=>$this->line1,
-                        'postal_code' => $this->zipcode,
-                        'city' =>$this->city,
-                        'state' => $this->province,
-                        'country' => $this->country,
-                    ],
-                    'shipping' =>[
+                } else {
+                    $customer = Customer::create([
                         'name' => $this->firstname . ' ' . $this->lastname,
-                        'address' =>[
-                            'line1'=>$this->line1,
+                        'email' => $this->email,
+                        'phone' => $this->mobile,
+                        'address' => [
+                            'line1' => $this->line1,
                             'postal_code' => $this->zipcode,
-                            'city' =>$this->city,
+                            'city' => $this->city,
                             'state' => $this->province,
                             'country' => $this->country,
                         ],
-                    ],
-                    'source' => $token['id']
-                ]);
+                        'shipping' => [
+                            'name' => $this->firstname . ' ' . $this->lastname,
+                            'address' => [
+                                'line1' => $this->line1,
+                                'postal_code' => $this->zipcode,
+                                'city' => $this->city,
+                                'state' => $this->province,
+                                'country' => $this->country,
+                            ],
+                        ],
+                        'source' => $token->id, // Use the token as the payment source
+                    ]);
 
-                $charge = $stripe->charges()->create([
-                    'customer' => $customer['id'],
-                    'currency' => "USD",
-                    'amount' => session()->get('checkout')['total'],
-                    'description' => 'Payment for order no ' . $order->id
-                ]);
+                    if ($customer) {
+                        $charge = Charge::create([
+                            'customer' => $customer->id,
+                            'currency' => 'USD',
+                            'amount' => session()->get('checkout')['total'],
+                            'description' => 'Payment for order no ' . $order->id,
+                        ]);
 
-                if($charge['status'] == 'succeeded') {
-                    $this->makeTransaction($order->id, 'approved');
-                    $this->resetCart();
-                } else {
-                    session()->flash('stripe_error', 'Error in Transaction!');
-                    $this->thankyou = 0;
+                        if ($charge->status == 'succeeded') {
+                            $this->makeTransaction($order->id, 'approved');
+                            $this->resetCart();
+                        } else {
+                            session()->flash('stripe_error', 'Error in transaction!');
+                            $this->thankyou = 0;
+                        }
+                    } else {
+                        session()->flash('stripe_error', 'Error creating customer in Stripe!');
+                        $this->thankyou = 0;
+                    }
                 }
             }
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

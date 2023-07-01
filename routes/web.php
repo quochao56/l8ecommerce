@@ -41,6 +41,8 @@ use App\Http\Livewire\User\UserProfileComponent;
 use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishListComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,12 @@ Route::get('/wishlist', WishListComponent::class)->name('product.wishlist');
 Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 
 Route::get('contact-us', ContactComponent::class)->name('contact');
+
+Route::get('/auth/facebook',[FacebookController::class,'facebookpage'])->name('login-facebook');
+Route::get('/auth/facebook/callback',[FacebookController::class,'facebookredirect'])->name('redirect-facebook');
+
+Route::get('/auth/google',[GoogleController::class,'googlepage'])->name('login-google');
+Route::get('/auth/google/callback',[GoogleController::class,'googleredirect'])->name('redirect-google');
 // Normal user
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('user')->group(function () {

@@ -281,11 +281,11 @@
                                     class="grand-total-price">${{ Session::get('checkout')['total'] }}</span></p>
                         @endif
                         @if ($errors->isEmpty())
-                            <div id="processing" wire:ignore 
+                            <div id="processing" wire:ignore
                                 style="font-size: 22px; margin-bottom: 20px; padding-left:37px; color:green;display:none;">
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
-                                    <span>Processing...</span>
-                                
+                                <span>Processing...</span>
+
                             </div>
                         @endif
                         <button type="submit" class="btn btn-medium">Place order now</button>

@@ -180,7 +180,6 @@ find file htdocs\YourProjectName\config\livewire.php where you would be able to 
          'asset_url'  => 'http://localhost/YourProjectName/public',
 */
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
     ])->toArray(),
 
@@ -198,7 +197,6 @@ find file htdocs\YourProjectName\config\livewire.php where you would be able to 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ])->toArray(),
 
 ];

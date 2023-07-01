@@ -71,8 +71,7 @@
                                     <fieldset class="wrap-input">
                                         <label for="frm-login-uname">Email Address:</label>
                                         <input type="email" id="frm-login-uname" name="email"
-                                            placeholder="Type your email address" value="{{ old('email') }}"
-                                            autofocus>
+                                            placeholder="Type your email address" value="{{ old('email') }}" autofocus>
                                     </fieldset>
                                     <fieldset class="wrap-input">
                                         <label for="frm-login-pass">Password:</label>
@@ -88,7 +87,20 @@
                                         <a class="link-function left-position" href="{{ route('password.request') }}"
                                             title="Forgotten password?">Forgotten password?</a>
                                     </fieldset>
-                                    <input type="submit" class="btn btn-submit" value="Login" name="submit">
+                                    <div class="row text-center" >
+                                        <div class="col-md-4">
+                                            <input type="submit" class="btn btn-submit" value="Login" name="submit">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('login-facebook') }}" class="btn btn-secondary" style="background: rgb(90, 90, 237); color:white" role="button"><i
+                                                class="fa fa-facebook"></i> Login with Facebook</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('login-google') }}" class="btn btn-secondary" style="background: rgb(102, 196, 233); color:white" role="button"><i
+                                                class="fa fa-google"></i> Login with Google</a>
+                                        </div>
+                                    </div>
+                                    
                                 </form>
                             </div>
                         </div>
