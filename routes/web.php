@@ -75,7 +75,7 @@ Route::get('/search', SearchComponent::class)->name('product.search');
 
 Route::get('/wishlist', WishListComponent::class)->name('product.wishlist');
 
-Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
+Route::get('/thank-you/{order_id}/{status}/{paymentmode}', ThankyouComponent::class)->name('thankyou');
 
 Route::get('contact-us', ContactComponent::class)->name('contact');
 

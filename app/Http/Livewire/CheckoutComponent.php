@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use Stripe\PaymentMethod;
 use Stripe\Token;
 use Stripe\Customer;
 use Stripe\Charge;
+use Stripe\Stripe;
 
 class CheckoutComponent extends Component
 {
@@ -87,14 +89,6 @@ class CheckoutComponent extends Component
             ]);
         }
     }
-
-    public function mount()
-    {
-        $this->card_no = '4242424242424242';
-        $this->exp_month = 12;
-        $this->exp_year = 2025;
-        $this->cvc = 123;
-    }
     public function placeOrder()
     {
         $this->validate([
@@ -110,14 +104,6 @@ class CheckoutComponent extends Component
             'paymentmode' => 'required'
         ]);
 
-        if($this->paymentmode == 'card') {
-            $this->validate([
-                'card_no' => 'required|numeric',
-                'exp_month' => 'required|numeric',
-                'exp_year' => 'required|numeric',
-                'cvc' => 'required|numeric',
-            ]);
-        }
         try {
             DB::beginTransaction();
             $order = new Order();
@@ -178,74 +164,37 @@ class CheckoutComponent extends Component
             }
 
             if($this->paymentmode == 'cod') {
+
                 $this->makeTransaction($order->id, 'pending');
                 $this->resetCart();
             } elseif ($this->paymentmode == 'card') {
 
-                $stripe = \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                // Generate a token for the card
-                $token = Token::create([
-                    'card' => [
-                        'number' => $this->card_no,
-                        'exp_month' => $this->exp_month,
-                        'exp_year' => $this->exp_year,
-                        'cvc' => $this->cvc,
-                    ],
-                ]);
-                dd($token);
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $unitAmountCents = intval(session()->get('checkout')['total'] * 100);
 
-
-                if (!$token) {
-                    session()->flash('stripe_error', 'The stripe token was not generated correctly');
-                    $this->thankyou = 0;
-                } else {
-                    $customer = Customer::create([
-                        'name' => $this->firstname . ' ' . $this->lastname,
-                        'email' => $this->email,
-                        'phone' => $this->mobile,
-                        'address' => [
-                            'line1' => $this->line1,
-                            'postal_code' => $this->zipcode,
-                            'city' => $this->city,
-                            'state' => $this->province,
-                            'country' => $this->country,
-                        ],
-                        'shipping' => [
-                            'name' => $this->firstname . ' ' . $this->lastname,
-                            'address' => [
-                                'line1' => $this->line1,
-                                'postal_code' => $this->zipcode,
-                                'city' => $this->city,
-                                'state' => $this->province,
-                                'country' => $this->country,
+                $session = \Stripe\Checkout\Session::create([
+                    'line_items' => [
+                        [
+                            'price_data' => [
+                                'currency' => 'USD',
+                                'product_data' => [
+                                    'name' => 'Your Product Name',
+                                    'description' => 'Your Product Description',
+                                ],
+                                'unit_amount' => $unitAmountCents,
                             ],
+                            'quantity' => 1,
                         ],
-                        'source' => $token->id, // Use the token as the payment source
-                    ]);
+                    ],
+                    'mode' => 'payment',
+                    'success_url' => route('thankyou', ['order_id' => $order->id, 'status' => 'approved','paymentmode'=>$this->paymentmode]),
+                    'cancel_url' => route('checkout'),
+                ]);
 
-                    if ($customer) {
-                        $charge = Charge::create([
-                            'customer' => $customer->id,
-                            'currency' => 'USD',
-                            'amount' => session()->get('checkout')['total'],
-                            'description' => 'Payment for order no ' . $order->id,
-                        ]);
-
-                        if ($charge->status == 'succeeded') {
-                            $this->makeTransaction($order->id, 'approved');
-                            $this->resetCart();
-                        } else {
-                            session()->flash('stripe_error', 'Error in transaction!');
-                            $this->thankyou = 0;
-                        }
-                    } else {
-                        session()->flash('stripe_error', 'Error creating customer in Stripe!');
-                        $this->thankyou = 0;
-                    }
-                }
+                DB::commit();
+                return redirect()->away($session->url);
             }
-
-            DB::commit();
+            
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', $e->getMessage());
@@ -253,21 +202,6 @@ class CheckoutComponent extends Component
         }
     $this->sendOrderConfirmationMail($order);
 
-    }
-    public function resetCart()
-    {
-        $this->thankyou = 1;
-        Cart::instance('cart')->destroy();
-        session()->forget('checkout');
-    }
-    public function makeTransaction($order_id, $status)
-    {
-        $transaction = new Transaction();
-        $transaction->user_id = Auth::user()->id;
-        $transaction->order_id = $order_id;
-        $transaction->mode = $this->paymentmode;
-        $transaction->status = $status;
-        $transaction->save();
     }
     public function sendOrderConfirmationMail($order)
     {

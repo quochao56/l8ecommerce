@@ -217,7 +217,7 @@
                                 @if (Session::has('error'))
                                     <div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>
                                 @endif
-                                <p class="row-in-form">
+                                {{-- <p class="row-in-form">
                                     <label for="card-no">Card Number:</label>
                                     <input type="text" name="card-no" value=""
                                         placeholder="Card Number 16 digits" wire:model="card_no">
@@ -248,7 +248,7 @@
                                     @error('cvc')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </p>
+                                </p> --}}
                             </div>
                         @endif
                         <div class="choose-payment-methods">
@@ -264,13 +264,6 @@
                                 <span>Debit / Credit Card</span>
                                 <span class="payment-desc">There are many variations of passages of Lorem Ipsum
                                     available</span>
-                            </label>
-                            <label class="payment-method">
-                                <input name="payment-method" id="payment-method-paypal" value="paypal"
-                                    type="radio" wire:model="paymentmode">
-                                <span>Paypal</span>
-                                <span class="payment-desc">You can pay with your credit</span>
-                                <span class="payment-desc">card if you don't have a paypal account</span>
                             </label>
                             @error('paymentmode')
                                 <span class="text-danger">{{ $message }}</span>
