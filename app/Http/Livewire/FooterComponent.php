@@ -10,6 +10,9 @@ class FooterComponent extends Component
     public function render()
     {
         $setting = Setting::find(1);
+        if(empty($setting)){
+            $setting = new Setting();
+        }
         return view('livewire.footer-component',compact([
             'setting',
         ]));

@@ -10,10 +10,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('coupons', function (Blueprint $table) {
-            $table->date('expiry_date')->default(DB::raw('CURRENT_DATE'));
+            $table->date('expiry_date')->default(DB::raw('(CURRENT_DATE)'));
         });
     }
 
